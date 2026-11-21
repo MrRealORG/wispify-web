@@ -152,7 +152,7 @@ const bins = new Uint8Array(128);
  * mirrored like the app's radial bars (bass at the top, highs at the bottom).
  * Returns { bass, energy }. When nothing plays, levels decay to rest.
  */
-export function levels(out, smooth, mirror = true) {
+export function levels(out, smooth, mirror = true, rest = null) {
   const n = out.length;
   let bass = 0, energy = 0;
   const live = playing && analyser;
@@ -162,8 +162,9 @@ export function levels(out, smooth, mirror = true) {
     const k = mirror ? (i < half ? i : n - 1 - i) : i;
     // log-ish spread over bins 1..60
     const b = Math.min(60, Math.floor(1 + Math.pow(k / half, 1.6) * 59));
-    let v = live ? bins[b] / 255 : 0;
-    v = Math.pow(v, 1.4) * (0.85 + (k / half) * 0.5);
+    let v;
+    if (live) { v = bins[b] / 255; v = Math.pow(v, 1.4) * (0.85 + (k / half) * 0.5); }
+    else v = rest ? rest[i] : 0;
     const prev = smooth[i];
     smooth[i] = v > prev ? prev + (v - prev) * 0.55 : prev + (v - prev) * 0.12;
     out[i] = Math.min(1, smooth[i]);

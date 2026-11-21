@@ -135,6 +135,7 @@ export class StageCanvas {
     this.look = this.o.look;
     this.levels = new Float32Array(this.look.bars);
     this.smooth = new Float32Array(this.look.bars);
+    this.rest = new Float32Array(this.look.bars);
     this.P = { px: new Float32Array(160), py: new Float32Array(160), vx: new Float32Array(160), vy: new Float32Array(160), life: new Float32Array(160), size: new Float32Array(160), cursor: 0 };
     this.angle = 0; this.t = 0; this.last = 0; this.raf = 0; this.visible = true; this.settle = 0;
     this.bgCache = null;
@@ -145,11 +146,14 @@ export class StageCanvas {
     new IntersectionObserver(([e]) => { this.visible = e.isIntersecting; this.wake(); }).observe(canvas);
     document.addEventListener("visibilitychange", () => this.wake());
     audio.onChange(() => { this.settle = 90; this.wake(); });
+    if (this.o.skin === "app") {
+      this.qimgs = [1, 2].map((n) => { const im = new Image(); im.src = `${import.meta.env.BASE_URL}img/art${n}-512.webp`; im.onload = () => this.wake(); return im; });
+    }
     this.resize();
   }
   setLook(look) {
     this.look = look;
-    if (this.levels.length !== look.bars) { this.levels = new Float32Array(look.bars); this.smooth = new Float32Array(look.bars); }
+    if (this.levels.length !== look.bars) { this.levels = new Float32Array(look.bars); this.smooth = new Float32Array(look.bars); this.rest = new Float32Array(look.bars); }
     this.bgCache = null; this.P.cursor = 0; this.P.life.fill(0);
     this.posterSeeded = false;
     this.settle = 2; this.wake();
@@ -249,10 +253,10 @@ export class StageCanvas {
       const cur = LYRICS[this.lyricIdx % LYRICS.length].toUpperCase();
       const next = LYRICS[(this.lyricIdx + 1) % LYRICS.length].toUpperCase();
       let x, y, align, maxW;
-      if (look.lyricsPos === "left") { align = "left"; x = w * 0.06; maxW = Math.max(120, cx - r * 1.9 - x); y = h * 0.36; }
+      if (look.lyricsPos === "left") { align = "left"; x = w * 0.06; maxW = cx - r * 1.9 - x; y = h * 0.36; }
       else if (look.lyricsPos === "center") { align = "center"; x = w / 2; maxW = w * 0.78; y = h * 0.42; }
       else { align = "center"; x = w / 2; maxW = w * 0.8; y = Math.min(h * 0.86, cy + r * 1.95); }
-      if (look.lyricsPos === "left" && maxW < fs * 5) { align = "center"; x = w / 2; maxW = w * 0.86; y = h * 0.84; fs *= 0.8; ctx.font = `800 ${fs}px Bricolage, system-ui, sans-serif`; }
+      if (look.lyricsPos === "left" && maxW < fs * 6) { align = "center"; x = w / 2; maxW = w * 0.86; y = h * 0.84; fs *= 0.8; ctx.font = `800 ${fs}px Bricolage, system-ui, sans-serif`; }
       ctx.textAlign = align;
       const lines = wrap(ctx, cur, maxW);
       ctx.fillStyle = `rgba(255,255,255,${0.92 * this.lyricFade})`;
@@ -279,8 +283,11 @@ export class StageCanvas {
       names.forEach((n, i) => {
         const a = -Math.PI / 2 + 0.55 + i * 0.32, px = ox + Math.cos(a) * R, py = oy + Math.sin(a) * R;
         const s = (i === 0 ? 0.075 : 0.055) * Math.min(w, h * 1.4);
-        ctx.fillStyle = i === 0 ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.22)";
-        roundRect(ctx, px - s / 2, py - s / 2, s, s, s * 0.22); ctx.fill();
+        const im = i === 0 ? this.o.art : this.qimgs?.[i - 1];
+        roundRect(ctx, px - s / 2, py - s / 2, s, s, s * 0.22);
+        if (im?.complete && im.naturalWidth) {
+          ctx.save(); ctx.clip(); ctx.globalAlpha = i === 0 ? 1 : 0.55; ctx.drawImage(im, px - s / 2, py - s / 2, s, s); ctx.restore();
+        } else { ctx.fillStyle = "rgba(255,255,255,0.22)"; ctx.fill(); }
         ctx.textAlign = "left"; ctx.font = `700 ${s * 0.3}px Bricolage, sans-serif`;
         ctx.fillStyle = i === 0 ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)";
         ctx.fillText(n, px + s * 0.7, py + s * 0.08);
@@ -297,7 +304,7 @@ export class StageCanvas {
     let bass, energy;
     const usePoster = !playing && this.settle <= 0;
     if (!playing && !this.everPlayed) ({ bass, energy } = audio.posterLevels(this.levels, look.viz !== "wave"));
-    else ({ bass, energy } = audio.levels(this.levels, this.smooth, true));
+    else { audio.posterLevels(this.rest, look.viz !== "wave"); ({ bass, energy } = audio.levels(this.levels, this.smooth, true, this.rest)); }
     if (playing) this.everPlayed = true;
     if (playing && look.discSpin) this.angle += dt * (0.35 + bass * 0.6);
     // lyrics: advance every two bars of the demo loop

@@ -3,6 +3,7 @@ import "../css/stage.css";
 import "./common.js";
 import { StageCanvas, TEMPLATES } from "./viz.js";
 import { initPlayButton } from "./ui.js";
+import * as audio from "./audio.js";
 
 const canvas = document.getElementById("stage-canvas");
 const list = document.getElementById("tpl-list");
@@ -64,3 +65,4 @@ const playBtn = document.getElementById("stage-play");
 initPlayButton(playBtn, document.querySelector(".deck"));
 // clicking anywhere on the screen toggles too
 canvas.addEventListener("click", () => playBtn.click());
+audio.onChange((p) => { canvas.parentElement.dataset.cursor = p ? "Pause" : "Play"; const c = document.querySelector(".cursor.on"); if (c) c.textContent = canvas.parentElement.dataset.cursor; });

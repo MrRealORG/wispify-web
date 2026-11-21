@@ -32,6 +32,7 @@
 .maker__big { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 9vw, 9rem); line-height: 0.84; letter-spacing: -0.035em; text-transform: uppercase; }
 .maker__big .serif { color: var(--acid); text-transform: none; }
 .maker p { color: #cfc8b8; }
+@media (max-width: 860px) { .maker { grid-template-columns: minmax(0, 1fr); } }
 .sleeve-back { padding: clamp(80px, 10vw, 140px) var(--gut); }
 .sleeve-back > .label { margin: 0 0 18px; }
 .sleeve-back .h2 { margin-bottom: clamp(32px, 5vw, 60px); }

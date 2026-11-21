@@ -267,6 +267,7 @@ kbd, .kbd {
 .menu-open .hdr::before { opacity: 0 !important; }
 .menu-open .hdr__cat { color: var(--ink); border-color: var(--ink); }
 
+@media (max-width: 480px) { .hdr__cat { display: none; } }
 @media (max-width: 960px) {
   :root { --hdr: 58px; }
   .nav { display: none; }

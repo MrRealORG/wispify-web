@@ -15,7 +15,7 @@ const lyricN = document.getElementById("lyric-n");
 
 const layout = (w, h) => {
   if (w < 760) return { cx: w * 0.5, cy: Math.min(h * 0.36, w * 0.62), r: w * 0.24 };
-  return { cx: w * 0.67, cy: h * 0.44, r: Math.min(w * 0.13, h * 0.2) };
+  return { cx: w * 0.655, cy: h * 0.45, r: Math.min(w * 0.125, h * 0.19) };
 };
 const place = () => {
   const r = canvas.getBoundingClientRect();

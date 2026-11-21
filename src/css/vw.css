@@ -1,5 +1,5 @@
 /* ───────── voice playground ───────── */
-.vw { position: relative; background: var(--ink-2); border: 1px solid var(--line); padding: clamp(18px, 2.4vw, 32px); }
+.vw { min-width: 0; position: relative; background: var(--ink-2); border: 1px solid var(--line); padding: clamp(18px, 2.4vw, 32px); }
 .vw__top { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "key state" "key mode"; gap: 14px 22px; align-items: center; }
 .vw__key {
   grid-area: key; width: clamp(96px, 9vw, 128px); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer;

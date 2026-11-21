@@ -150,8 +150,10 @@
 .paper .tbl th, .paper .tbl td { border-color: var(--line-ink); }
 .tbl td code { white-space: nowrap; }
 @media (max-width: 860px) {
-  .doc { grid-template-columns: 1fr; }
+  .doc { grid-template-columns: minmax(0, 1fr); }
   .doc__nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
   .doc__nav a { border-left: 0; padding: 4px 0; border-bottom: 1px solid var(--line); }
   .tbl { font-size: 14px; }
 }
+.duo__img--app { width: min(360px, 78%); align-self: flex-start; height: 340px; overflow: hidden; }
+.duo__img--app img { width: 100%; height: auto; }

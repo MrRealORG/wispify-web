@@ -1,12 +1,12 @@
 /* ───────── Voice page ───────── */
-.vhead .lede { margin-top: clamp(24px, 3vw, 40px); max-width: 44ch; }
+.vhead .lede { margin-top: clamp(44px, 4.4vw, 72px); max-width: 44ch; }
 .play { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(28px, 4vw, 64px); padding: clamp(20px, 3vw, 40px) var(--gut) clamp(80px, 10vw, 140px); align-items: start; }
 .pipe { list-style: none; margin: 0; padding: 0; position: sticky; top: calc(var(--hdr) + 28px); border-left: 1.5px solid var(--line); }
 .pipe li { position: relative; display: grid; gap: 4px; padding: 0 0 26px 30px; }
 .pipe__n { position: absolute; left: -12px; top: 0; width: 22px; height: 22px; display: grid; place-items: center; background: var(--ink); border: 1.5px solid var(--acid); border-radius: 50%; font: 700 11px var(--f-mono); color: var(--acid); }
 .pipe b { font-weight: 700; font-stretch: 85%; font-size: 1.25rem; }
 .pipe span:last-child { color: var(--dim); font-size: 15.5px; }
-@media (max-width: 1000px) { .play { grid-template-columns: 1fr; } .pipe { position: static; } }
+@media (max-width: 1000px) { .play { grid-template-columns: minmax(0, 1fr); } .pipe { position: static; } }
 
 .modes { padding: clamp(80px, 10vw, 140px) var(--gut); border-top: 1px solid var(--line); }
 .modes .h2 .serif { color: var(--acid); }
@@ -56,5 +56,7 @@
 .models .prose { color: #cfc8b8; margin-top: 24px; }
 .models .tbl td { font-size: clamp(1rem, 1.4vw, 1.3rem); }
 .models .tbl tr.on td { color: var(--acid); }
+.models .tbl td.mono { font-size: 11px; color: var(--dim); }
+.models .tbl tr.on td.mono { color: var(--acid); }
 .fine { font-size: 13px; color: var(--dim); max-width: 64ch; margin-top: 16px; }
 @media (max-width: 900px) { .models { grid-template-columns: 1fr; } }

@@ -186,7 +186,8 @@ export function parseLenient(raw, wakeWords) {
   const text = normalize(raw);
   const w = stripWake(text, wakeWords);
   const body = trimSuffixFiller(trimFiller((w === null ? text : w).trim())).trim();
-  if (!body || isNoise(body) || body.length > 120) return { intent: null, how: isNoise(body) ? "noise" : "empty" };
+  if (!body) return { intent: null, how: "empty" };
+  if (isNoise(body) || body.length > 120) return { intent: null, how: "noise" };
   if (HOMOPHONES[body]) { const i = parseBody(HOMOPHONES[body]); if (i) return { intent: i, how: "soundalike", fixed: HOMOPHONES[body] }; }
   if (body.split(" ").length <= 2 && [...body].length >= 4) {
     let best = null;
