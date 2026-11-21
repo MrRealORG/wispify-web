@@ -1,8 +1,8 @@
 {
   "name": "wispify-web",
   "private": true,
-  "version": "1.0.0",
-  "description": "Marketing and download site for Wispify, a tiny music player for Windows with offline voice control.",
+  "version": "2.0.0",
+  "description": "Website for Wispify, a tiny native music player for Windows with offline voice control and a live Stage visualizer.",
   "type": "module",
   "scripts": {
     "dev": "vite",
