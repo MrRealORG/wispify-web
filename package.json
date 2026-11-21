@@ -1,0 +1,16 @@
+{
+  "name": "wispify-web",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Marketing and download site for Wispify, a tiny music player for Windows with offline voice control.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
+  },
+  "license": "MIT"
+}
