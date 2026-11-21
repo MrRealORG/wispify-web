@@ -91,3 +91,6 @@
   .smodes__l { position: static; }
   .press__dl > div { grid-template-columns: 1fr; gap: 4px; }
 }
+@media (max-width: 900px) {
+  .deck__play { right: auto; left: 14px; top: 14px; bottom: auto; width: 54px; height: 54px; }
+}

@@ -1,5 +1,5 @@
 /* ───────── Voice page ───────── */
-.vhead .lede { margin-top: clamp(44px, 4.4vw, 72px); max-width: 44ch; }
+.page-head.vhead .lede { margin-top: clamp(44px, 4.4vw, 72px); max-width: 44ch; }
 .play { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(28px, 4vw, 64px); padding: clamp(20px, 3vw, 40px) var(--gut) clamp(80px, 10vw, 140px); align-items: start; }
 .pipe { list-style: none; margin: 0; padding: 0; position: sticky; top: calc(var(--hdr) + 28px); border-left: 1.5px solid var(--line); }
 .pipe li { position: relative; display: grid; gap: 4px; padding: 0 0 26px 30px; }

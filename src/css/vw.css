@@ -77,3 +77,4 @@
   .vw__row { grid-template-columns: 1fr; gap: 4px; }
   .vw__go { display: none; }
 }
+.vw__in:focus-visible { outline: none; }
