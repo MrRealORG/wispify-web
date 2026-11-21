@@ -104,7 +104,7 @@ button { font: inherit; color: inherit; }
   font-stretch: 78%;
   font-variation-settings: "opsz" 96;
   line-height: 0.86;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.012em;
 }
 .h2 {
   font-size: clamp(2.3rem, 5.4vw, 5.6rem);
@@ -112,7 +112,7 @@ button { font: inherit; color: inherit; }
   font-stretch: 82%;
   font-variation-settings: "opsz" 72;
   line-height: 0.92;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.01em;
 }
 .h3 {
   font-size: clamp(1.4rem, 2.2vw, 2rem);
@@ -250,7 +250,7 @@ kbd, .kbd {
 .sheet__list a {
   display: flex; align-items: baseline; gap: 14px; padding: 10px 0 6px;
   font-weight: 800; font-stretch: 75%; font-size: clamp(2.6rem, 12vw, 4.2rem); line-height: 0.95;
-  text-transform: uppercase; letter-spacing: -0.03em; text-decoration: none;
+  text-transform: uppercase; letter-spacing: -0.012em; text-decoration: none;
   transform: translateY(105%); transition: transform 0.55s var(--ease);
 }
 .sheet__list .nav__n { color: var(--ink); opacity: 0.55; font-size: 12px; font-family: var(--f-mono); font-weight: 600; }

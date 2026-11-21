@@ -14,6 +14,7 @@ if (targets.length) {
     }
   }, { rootMargin: "-20% 0px -70% 0px" });
   targets.forEach((t) => io.observe(t));
+  links[0].classList.add("on");
 }
 /* open a FAQ answer when its anchor is linked */
 const openHash = () => { const el = location.hash && document.querySelector(`details${location.hash}`); if (el) el.open = true; };

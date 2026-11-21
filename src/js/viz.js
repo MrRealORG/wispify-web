@@ -220,7 +220,7 @@ export class StageCanvas {
       } else if (art?.complete && art.naturalWidth) {
         ctx.save(); ctx.beginPath(); ctx.arc(0, 0, lr, 0, Math.PI * 2); ctx.clip(); ctx.drawImage(art, -lr, -lr, lr * 2, lr * 2); ctx.restore();
       }
-      ctx.beginPath(); ctx.arc(0, 0, r * 0.025, 0, Math.PI * 2); ctx.fillStyle = "#0c0b09"; ctx.fill();
+      if (this.o.skin !== "site") { ctx.beginPath(); ctx.arc(0, 0, r * 0.025, 0, Math.PI * 2); ctx.fillStyle = "#0c0b09"; ctx.fill(); }
     } else if (art?.complete && art.naturalWidth) {
       ctx.save(); ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.clip(); ctx.drawImage(art, -r, -r, r * 2, r * 2); ctx.restore();
       ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.18)"; ctx.stroke();
@@ -277,11 +277,11 @@ export class StageCanvas {
     }
     if (look.queue && !small) {
       // the orbit queue, simplified: three covers on a curve in the lower-left corner
-      const R = Math.min(w, h) * 0.42, ox = -R * 0.38, oy = h + R * 0.2;
-      ctx.beginPath(); ctx.arc(ox, oy, R, -Math.PI / 2.1, -0.15); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.stroke();
+      const R = Math.min(w, h) * 0.36, ox = -R * 0.3, oy = h + R * 0.42;
+      ctx.beginPath(); ctx.arc(ox, oy, R, -Math.PI / 2.05, -0.3); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.stroke();
       const names = ["Low Orbit", "Glasshouse", "Paper Satellites"];
       names.forEach((n, i) => {
-        const a = -Math.PI / 2 + 0.55 + i * 0.32, px = ox + Math.cos(a) * R, py = oy + Math.sin(a) * R;
+        const a = -Math.PI / 2 + 0.45 + i * 0.26, px = ox + Math.cos(a) * R, py = oy + Math.sin(a) * R;
         const s = (i === 0 ? 0.075 : 0.055) * Math.min(w, h * 1.4);
         const im = i === 0 ? this.o.art : this.qimgs?.[i - 1];
         roundRect(ctx, px - s / 2, py - s / 2, s, s, s * 0.22);

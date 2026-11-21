@@ -13,7 +13,7 @@
 .opt__tag { color: var(--dim); font-size: 11px; }
 .opt--main .opt__tag { color: var(--acid); }
 .opt:hover .opt__tag, .opt:hover .opt__f { color: var(--ink); }
-.opt__t { font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 6vw, 6rem); line-height: 0.85; text-transform: uppercase; letter-spacing: -0.03em; margin-top: auto; }
+.opt__t { font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 6vw, 6rem); line-height: 0.85; text-transform: uppercase; letter-spacing: -0.012em; margin-top: auto; }
 .opt__f { font-size: 12px; color: var(--dim); text-transform: none; letter-spacing: 0; word-break: break-all; }
 .opt__d { font-size: 16px; max-width: 30ch; }
 .opt__go { margin-top: 10px; padding-top: 14px; border-top: 1px solid currentColor; font-size: 12px; display: flex; justify-content: space-between; }
@@ -49,3 +49,4 @@
 .rel h3 .mono { position: absolute; left: 0; top: 27px; font-size: 13px; color: var(--verm); }
 .rel p { margin: 0; color: #3c372f; }
 @media (max-width: 860px) { .notes-rel { grid-template-columns: 1fr; } }
+.steps li p { margin: 0; }

@@ -29,7 +29,7 @@
 .credits small { display: block; color: var(--dim-2); font-size: 13px; }
 @media (max-width: 860px) { .credits { grid-template-columns: 1fr; } .credits > div:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; } }
 .maker { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 90px); padding: clamp(40px, 6vw, 90px) var(--gut) clamp(80px, 10vw, 140px); align-items: end; }
-.maker__big { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 9vw, 9rem); line-height: 0.84; letter-spacing: -0.035em; text-transform: uppercase; }
+.maker__big { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 9vw, 9rem); line-height: 0.84; letter-spacing: -0.015em; text-transform: uppercase; }
 .maker__big .serif { color: var(--acid); text-transform: none; }
 .maker p { color: #cfc8b8; }
 @media (max-width: 860px) { .maker { grid-template-columns: minmax(0, 1fr); } }
@@ -40,9 +40,9 @@
 .fineprint { margin-top: 36px; max-width: 72ch; font-size: 15px; color: #3c372f; }
 
 /* 404 */
-.lost { min-height: 100svh; display: grid; align-content: center; padding: calc(var(--hdr) + 40px) var(--gut) 60px; position: relative; overflow: hidden; }
-.lost__n { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(9rem, 42vw, 40rem); line-height: 0.76; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 2px var(--ink-3); position: absolute; right: -0.04em; bottom: -0.1em; z-index: -1; user-select: none; }
+.lost { min-height: 100svh; display: grid; align-content: center; padding: calc(var(--hdr) + 40px) var(--gut) 60px; position: relative; overflow: hidden; isolation: isolate; }
+.lost__n { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(9rem, 42vw, 40rem); line-height: 0.76; letter-spacing: -0.06em; color: var(--ink-2); position: absolute; right: -0.04em; bottom: -0.1em; z-index: -1; user-select: none; }
 .lost .h1 { max-width: 12ch; }
 .lost .h1 .serif { color: var(--acid); }
-.lost p { max-width: 40ch; color: var(--dim); font-size: 1.2rem; }
+.lost p:not(.label) { max-width: 40ch; color: var(--dim); font-size: 1.2rem; }
 .lost__links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
