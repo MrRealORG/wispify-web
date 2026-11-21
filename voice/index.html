@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Voice — Wispify","desc":"Hold F8 and say what you want to hear, even mid-game. Try Wispify's real voice command parser in your browser and see every command it understands.","path":"voice/","nav":"voice","og":"voice"}-->
+<script type="module" src="/src/js/voice.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <header class="page-head vhead">
+    <p class="label"><span>02 — Voice</span><span>Offline · whisper.cpp · base.en</span></p>
+    <h1 class="h1" data-split>Talk to<br />your <span class="serif">music</span></h1>
+    <p class="lede" data-reveal>Hold <kbd>F8</kbd> anywhere in Windows, even with a fullscreen game focused, and say what you want. Your PC turns the speech into text; the grammar below turns the text into an action.</p>
+  </header>
+
+  <section class="play" aria-labelledby="play-h">
+    <h2 class="sr" id="play-h">Voice playground</h2>
+    <div class="vw vw--full" id="vw-main"></div>
+    <ol class="pipe" data-reveal>
+      <li><span class="pipe__n">1</span><b>Key down</b><span>The mic opens only while <kbd>F8</kbd> is held, or until you stop talking after a quick tap.</span></li>
+      <li><span class="pipe__n">2</span><b>Speak</b><span>Up to ten seconds. A live orb follows your level.</span></li>
+      <li><span class="pipe__n">3</span><b>Transcribe</b><span>whisper.cpp runs Whisper base.en on your CPU. In the project's benchmark a command took about 0.4 s on a 2-core machine.</span></li>
+      <li><span class="pipe__n">4</span><b>Understand</b><span>The grammar you're playing with maps the words to one action, or to nothing.</span></li>
+      <li><span class="pipe__n">5</span><b>Confirm</b><span>A small click-through toast appears without taking focus from your game. An optional chime covers exclusive-fullscreen games.</span></li>
+    </ol>
+  </section>
+
+  <section class="modes" aria-labelledby="modes-h">
+    <h2 class="h2" id="modes-h" data-split>Three ways<br /><span class="serif">to listen</span></h2>
+    <div class="modes__grid">
+      <article data-reveal><p class="label">Default</p><h3 class="h3">Push-to-talk</h3><p>Hold <kbd>F8</kbd>, speak, let go. Zero CPU when idle; the mic is closed the rest of the time. The most forgiving mode: sound-alikes, near misses and bare song names all work, because the key press already says “this is for Wispify”.</p></article>
+      <article data-reveal style="--d:.08s"><p class="label">Hands free</p><h3 class="h3">Wake word</h3><p>Say <em>“Hey Wisp, next.”</em> An always-on, near-zero-CPU voice gate wakes Whisper only on speech, and only commands that start with the wake word run, so game voice chat can't skip your songs.</p></article>
+      <article data-reveal style="--d:.16s"><p class="label">Quiet</p><h3 class="h3">Off</h3><p>No listening at all. Hotkeys and everything else keep working. Change modes any time in Settings → Voice.</p></article>
+    </div>
+  </section>
+
+  <section class="cmds paper" id="commands" aria-labelledby="cmds-h">
+    <header class="cmds__head">
+      <p class="label">The whole grammar · click any phrase to run it above</p>
+      <h2 class="h1" id="cmds-h" data-split>Every<br />command</h2>
+      <p class="lede" data-reveal>Case and punctuation don't matter. “Please”, “can you”, “now” and a trailing “song” are ignored. With push-to-talk, anything else that looks like a title becomes a search.</p>
+    </header>
+    <div class="cmds__groups">
+      <div class="grp" data-reveal>
+        <h3 class="grp__h"><span>01</span>Play</h3>
+        <dl>
+          <div><dt><button type="button" data-say="play blinding lights">play <i>&lt;song or artist&gt;</i></button></dt><dd>Also: <i>play me, play some, play the song, put on, listen to, search, find</i></dd></div>
+          <div><dt><button type="button" data-say="Paper Satellites">Paper Satellites</button></dt><dd>Push-to-talk only: a bare title of two words, or one word of five letters or more, plays it.</dd></div>
+          <div><dt><button type="button" data-say="resume">resume</button></dt><dd><i>play, continue, unpause, go on, keep playing, start, play again</i></dd></div>
+          <div><dt><button type="button" data-say="pause">pause</button></dt><dd><i>hold, hold on, stop, wait, quiet, shut up</i> — “stop” pauses and never clears your queue.</dd></div>
+        </dl>
+      </div>
+      <div class="grp" data-reveal>
+        <h3 class="grp__h"><span>02</span>Move</h3>
+        <dl>
+          <div><dt><button type="button" data-say="next">next</button></dt><dd><i>skip, skip it, next one, forward, another one, change it, nah, next up</i></dd></div>
+          <div><dt><button type="button" data-say="previous">previous</button></dt><dd><i>back, go back, last one, rewind, before</i></dd></div>
+          <div><dt><button type="button" data-say="shuffle on">shuffle <i>[on | off]</i></button></dt><dd>“shuffle” alone toggles. Also <i>turn on shuffle</i>.</dd></div>
+          <div><dt><button type="button" data-say="repeat one">repeat <i>[one | all | off]</i></button></dt><dd><i>loop, repeat this one, on repeat, loop queue, stop repeating</i></dd></div>
+        </dl>
+      </div>
+      <div class="grp" data-reveal>
+        <h3 class="grp__h"><span>03</span>Volume</h3>
+        <dl>
+          <div><dt><button type="button" data-say="volume up">volume up</button></dt><dd><i>louder, turn it up, more volume, raise volume</i></dd></div>
+          <div><dt><button type="button" data-say="volume down">volume down</button></dt><dd><i>quieter, softer, turn it down, lower</i></dd></div>
+          <div><dt><button type="button" data-say="set the volume to 40">volume <i>40</i></button></dt><dd>0–100, digits or words: <i>set volume to seventy, volume half, max volume</i></dd></div>
+          <div><dt><button type="button" data-say="mute">mute</button></dt><dd><i>mute it</i></dd></div>
+        </dl>
+      </div>
+      <div class="grp" data-reveal>
+        <h3 class="grp__h"><span>04</span>Sound</h3>
+        <dl>
+          <div><dt><button type="button" data-say="slowed on">slowed <i>[on | off]</i></button></dt><dd><i>slow it down, slowed and reverb, back to normal, no effects</i></dd></div>
+          <div><dt><button type="button" data-say="reverb on">reverb <i>[on | off]</i></button></dt><dd><i>turn off reverb</i></dd></div>
+          <div><dt><button type="button" data-say="speed it up">speed up</button></dt><dd><i>sped up, faster</i></dd></div>
+          <div><dt><button type="button" data-say="nightcore">nightcore</button></dt><dd><i>night core, nightcore off</i></dd></div>
+          <div><dt><button type="button" data-say="bass boost">bass boost</button></dt><dd><i>more bass, bass off, no bass</i></dd></div>
+        </dl>
+      </div>
+      <div class="grp" data-reveal>
+        <h3 class="grp__h"><span>05</span>Keep</h3>
+        <dl>
+          <div><dt><button type="button" data-say="save this">save</button></dt><dd><i>like it, love this, favourite, add to library, heart it</i></dd></div>
+          <div><dt><button type="button" data-say="what's playing">what's playing</button></dt><dd><i>what is this, what is that, name</i></dd></div>
+        </dl>
+      </div>
+      <div class="grp grp--fix" data-reveal>
+        <h3 class="grp__h"><span>06</span>Forgiven</h3>
+        <p>Whisper sometimes hears a near neighbour. With push-to-talk these still work:</p>
+        <ul class="fixes">
+          <li><button type="button" data-say="necks">necks</button><span>→ next</span></li>
+          <li><button type="button" data-say="paws">paws</button><span>→ pause</span></li>
+          <li><button type="button" data-say="presume">presume</button><span>→ resume</span></li>
+          <li><button type="button" data-say="safe">safe</button><span>→ save</span></li>
+          <li><button type="button" data-say="puase">puase</button><span>→ pause</span></li>
+          <li><button type="button" data-say="shufle">shufle</button><span>→ shuffle</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="models" aria-labelledby="models-h">
+    <div class="models__text">
+      <p class="label">Under the hood</p>
+      <h2 class="h2" id="models-h" data-split>The model<br /><span class="serif">lives on your PC</span></h2>
+      <p class="prose" data-reveal>The first time you press Voice, Wispify downloads the selected Whisper model once, with progress. After that nothing you say leaves your computer. Base.en is the default: tiny mis-heard a clean test phrase, and song titles are exactly where that hurts. Small is there if your CPU is fast.</p>
+    </div>
+    <div class="models__tbl" data-reveal>
+      <table class="tbl">
+        <thead><tr><th>Model</th><th>Download</th><th>One command*</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>tiny.en</td><td>31 MB</td><td>≈0.15 s</td><td class="mono">Low-impact</td></tr>
+          <tr class="on"><td>base.en</td><td>57 MB</td><td>≈0.39 s</td><td class="mono">Default</td></tr>
+          <tr><td>small.en</td><td>181 MB</td><td>≈1.5 s</td><td class="mono">Fast CPUs</td></tr>
+        </tbody>
+      </table>
+      <p class="fine">*Encoder time for a 3–5 second command with Wispify's trimmed audio window, on a shared 2-vCPU test VM (±30%). From the project's voice model benchmark.</p>
+    </div>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>

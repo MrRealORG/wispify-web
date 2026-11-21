@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Features — Wispify","desc":"Everything in Wispify 2.1.4: one search across seven sources, a live Sound studio, the orbit queue, a mini player pill, global hotkeys, offline voice and the Stage visualizer.","path":"features/","nav":"features","og":"features"}-->
+<script type="module" src="/src/js/features.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <header class="page-head">
+    <p class="label"><span>01 — Features</span><span>Liner notes for 2.1.4</span></p>
+    <h1 class="h1" data-split>Everything<br /><span class="serif">on the record</span></h1>
+    <div class="page-head__row">
+      <p class="lede" data-reveal>A player small enough to leave open while you game, with the things you'd actually reach for one keypress away. Every screenshot below is the real app.</p>
+      <nav class="toc mono" aria-label="On this page" data-reveal>
+        <a href="#player"><span>01</span>Player</a><a href="#sound"><span>02</span>Sound studio</a><a href="#queue"><span>03</span>Orbit queue</a><a href="#pill"><span>04</span>The pill</a><a href="#keys"><span>05</span>Hotkeys</a><a href="#more"><span>06</span>Voice &amp; Stage</a><a href="#light"><span>07</span>Lightweight</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="feat" id="player" aria-labelledby="player-h">
+    <div class="feat__text">
+      <p class="feat__n" aria-hidden="true">01</p>
+      <h2 class="h2" id="player-h" data-split>One search,<br />seven sources</h2>
+      <div class="prose" data-reveal>
+        <p>Type a song or an artist and Wispify searches Audius, JioSaavn, YouTube Music, Deezer, iTunes, Internet Archive and radio at once, and plays full-length tracks. Press <kbd>/</kbd> to jump to search.</p>
+        <p>The main screen stays calm: art, title, one play row and a small dock with Up next, Like, Volume and the Sound studio. Library, Discover, downloads, Save to folder, Copy link, Sleep timer and Player style all live in the <strong>⋯ More</strong> menu. Synced lyrics can run under the player.</p>
+      </div>
+    </div>
+    <figure class="annot annot--tall" data-reveal>
+      <picture><source type="image/avif" srcset="%B%img/now-playing-440.avif 440w, %B%img/now-playing-880.avif 880w" sizes="(max-width: 720px) 80vw, 400px" /><img src="%B%img/now-playing-440.webp" srcset="%B%img/now-playing-440.webp 440w, %B%img/now-playing-880.webp 880w" sizes="(max-width: 720px) 80vw, 400px" width="880" height="1120" loading="lazy" decoding="async" alt="Wispify now playing: search field, spinning disc art, title Low Orbit by Nightglass, seek bar, transport buttons, a lyric line and the dock" /></picture>
+      <ol class="pins">
+        <li style="--x:62.3%;--y:4.1%" data-side="r"><span>Voice · ⋯ More</span></li>
+        <li style="--x:12%;--y:13%" data-side="l"><span>Search, <kbd>/</kbd></span></li>
+        <li style="--x:30%;--y:32%" data-side="l"><span>Cover as a disc</span></li>
+        <li style="--x:70%;--y:80.4%" data-side="r"><span>Synced lyric line</span></li>
+        <li style="--x:10%;--y:92.6%" data-side="l"><span>Up next · Like · Volume</span></li>
+        <li style="--x:90%;--y:92.6%" data-side="r"><span>Sound studio</span></li>
+      </ol>
+    </figure>
+  </section>
+
+  <section class="feat feat--paper paper" id="sound" aria-labelledby="sound-h">
+    <div class="feat__text">
+      <p class="feat__n" aria-hidden="true">02</p>
+      <h2 class="h2" id="sound-h" data-split>Change the song<br /><span class="serif">while it plays</span></h2>
+      <div class="prose" data-reveal>
+        <p>The Sound studio opens as a sheet over the player. Flip a preset and the song you're hearing changes on the spot: no re-download, no restart. Reverb costs nothing when it's off.</p>
+      </div>
+      <ul class="presets" data-reveal>
+        <li><b>Slowed</b><span>The slowed version, live.</span></li>
+        <li><b>Speed</b><span>The sped-up version.</span></li>
+        <li><b>Nightcore</b><span>The nightcore treatment.</span></li>
+        <li><b>Reverb</b><span>A room around the track.</span></li>
+        <li><b>Bass</b><span>A low-end boost.</span></li>
+        <li><b>0.75× – 1.5×</b><span>Playback speed, and ±10 s jumps.</span></li>
+      </ul>
+    </div>
+    <figure class="annot annot--tall" data-reveal>
+      <picture><source type="image/avif" srcset="%B%img/sound-studio-440.avif 440w, %B%img/sound-studio-880.avif 880w" sizes="(max-width: 720px) 80vw, 400px" /><img src="%B%img/sound-studio-440.webp" srcset="%B%img/sound-studio-440.webp 440w, %B%img/sound-studio-880.webp 880w" sizes="(max-width: 720px) 80vw, 400px" width="880" height="1120" loading="lazy" decoding="async" alt="The Sound sheet: presets Slowed, Speed, Nightcore, Reverb and Bass, speeds 0.75x to 1.5x, and minus or plus ten second buttons" /></picture>
+      <ol class="pins">
+        <li style="--x:12%;--y:81%" data-side="l"><span>Presets</span></li>
+        <li style="--x:68%;--y:86.5%" data-side="r"><span>Speed</span></li>
+        <li style="--x:40%;--y:92.5%" data-side="l"><span>−10 s · Stop · +10 s</span></li>
+      </ol>
+    </figure>
+  </section>
+
+  <section class="feat feat--flip" id="queue" aria-labelledby="queue-h">
+    <div class="feat__text">
+      <p class="feat__n" aria-hidden="true">03</p>
+      <h2 class="h2" id="queue-h" data-split>Up next,<br />on an orbit</h2>
+      <div class="prose" data-reveal>
+        <p>Up next opens as a curved slider. Scroll, drag or use the arrow keys and it turns with a spring; the focused song grows, and a click or <kbd>Enter</kbd> plays it. The plain list (remove, clear) is one tap away.</p>
+        <p>Shuffle plays each song once per pass, Previous follows what you actually heard, and Repeat-one loops in place without fetching the stream again.</p>
+      </div>
+    </div>
+    <figure class="annot annot--tall" data-reveal>
+      <picture><source type="image/avif" srcset="%B%img/orbit-queue-440.avif 440w, %B%img/orbit-queue-880.avif 880w" sizes="(max-width: 720px) 80vw, 400px" /><img src="%B%img/orbit-queue-440.webp" srcset="%B%img/orbit-queue-440.webp 440w, %B%img/orbit-queue-880.webp 880w" sizes="(max-width: 720px) 80vw, 400px" width="880" height="1120" loading="lazy" decoding="async" alt="The Up next orbit: songs on a curve, Low Orbit focused and larger, Glasshouse and Paper Satellites following" /></picture>
+      <ol class="pins">
+        <li style="--x:56%;--y:44.8%" data-side="r"><span>Orbit · List</span></li>
+        <li style="--x:30%;--y:69%" data-side="l"><span>Focused song</span></li>
+      </ol>
+    </figure>
+  </section>
+
+  <section class="feat feat--pill paper" id="pill" aria-labelledby="pill-h">
+    <div class="feat__text">
+      <p class="feat__n" aria-hidden="true">04</p>
+      <h2 class="h2" id="pill-h" data-split>Shrink it<br />to a <span class="serif">pill</span></h2>
+      <div class="prose" data-reveal>
+        <p>The mini-player button in the title bar folds Wispify into a slim pill: cover, song, artist and play/pause. Close hides to the tray, and the music and voice keep running; quit from the tray.</p>
+      </div>
+    </div>
+    <div class="pill-stage" data-reveal>
+      <picture><source type="image/avif" srcset="%B%img/pill-224.avif 224w, %B%img/pill-448.avif 448w" sizes="(max-width: 720px) 80vw, 560px" /><img src="%B%img/pill-448.webp" srcset="%B%img/pill-224.webp 224w, %B%img/pill-448.webp 448w" sizes="(max-width: 720px) 80vw, 560px" width="448" height="112" loading="lazy" decoding="async" alt="The collapsed Wispify pill: cover, Low Orbit · Nightglass, and a pause button" /></picture>
+      <p class="mono pill-stage__cap">Shown at about its real size.</p>
+    </div>
+  </section>
+
+  <section class="keys" id="keys" aria-labelledby="keys-h">
+    <div class="keys__text">
+      <p class="feat__n" aria-hidden="true">05</p>
+      <h2 class="h2" id="keys-h" data-split>Hotkeys that<br />reach through games</h2>
+      <p class="prose" data-reveal>Global shortcuts work while another window has focus, and your keyboard's media keys and the Windows media flyout work too. Rebind any of them in Settings → Keys. Try one on this page.</p>
+    </div>
+    <div class="keys__board" data-reveal>
+      <div class="combo" aria-live="polite"><span class="combo__keys" id="combo"><kbd>Ctrl</kbd><i>+</i><kbd>Alt</kbd><i>+</i><kbd>P</kbd></span><span class="combo__what serif" id="combo-what">Play / pause</span></div>
+      <ul class="keylist" id="keylist">
+        <li><button type="button" data-k="F8" data-what="Push-to-talk"><span>Push-to-talk</span><code>F8</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+P" data-what="Play / pause" aria-pressed="true"><span>Play / pause</span><code>Ctrl Alt P</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+N" data-what="Next"><span>Next</span><code>Ctrl Alt N</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+B" data-what="Previous"><span>Previous</span><code>Ctrl Alt B</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+L" data-what="Like"><span>Like</span><code>Ctrl Alt L</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+PgUp" data-what="Volume up"><span>Volume up</span><code>Ctrl Alt PgUp</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+PgDn" data-what="Volume down"><span>Volume down</span><code>Ctrl Alt PgDn</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+S" data-what="Slowed"><span>Slowed</span><code>Ctrl Alt S</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+R" data-what="Reverb"><span>Reverb</span><code>Ctrl Alt R</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+W" data-what="Show / hide Wispify"><span>Show / hide</span><code>Ctrl Alt W</code></button></li>
+        <li><button type="button" data-k="Ctrl+Alt+V" data-what="Stage on / off"><span>Stage</span><code>Ctrl Alt V</code></button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="duo" id="more" aria-label="Voice and Stage">
+    <a class="duo__a" href="%B%voice/">
+      <span class="label">06a — Voice</span>
+      <span class="duo__t">Say it<span class="serif">, offline</span></span>
+      <span class="duo__d">Push-to-talk or "Hey Wisp". whisper.cpp on your PC. Try the parser →</span>
+      <picture class="duo__img"><source type="image/avif" srcset="%B%img/voice-400.avif 400w, %B%img/voice-800.avif 800w" sizes="(max-width: 720px) 90vw, 40vw" /><img src="%B%img/voice-800.webp" srcset="%B%img/voice-400.webp 400w, %B%img/voice-800.webp 800w" sizes="(max-width: 720px) 90vw, 40vw" width="800" height="440" loading="lazy" decoding="async" alt="Wispify's voice screen: a mic orb and the word Listening" /></picture>
+    </a>
+    <a class="duo__a" href="%B%stage/">
+      <span class="label">06b — Stage</span>
+      <span class="duo__t">Fill the <span class="serif">screen</span></span>
+      <span class="duo__d">Eight templates, fullscreen or behind your desktop icons. Play them live →</span>
+      <picture class="duo__img"><source type="image/avif" srcset="%B%img/stage-neon-800.avif" /><img src="%B%img/stage-neon-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Stage, Neon template" /></picture>
+    </a>
+  </section>
+
+  <section class="light paper" id="light" aria-labelledby="light-h">
+    <div class="light__head">
+      <p class="feat__n" aria-hidden="true">07</p>
+      <h2 class="h2" id="light-h" data-split>Built for the<br /><span class="serif">slow PC</span></h2>
+      <p class="lede" data-reveal>Wispify was made for low-spec Windows machines first. These are the decisions that keep it out of your frame time.</p>
+    </div>
+    <ol class="notes" data-reveal>
+      <li><b>≈0%</b><span>CPU when idle. The mic is closed in push-to-talk, effects pause when the music does, and animations stop when the widget isn't focused.</span></li>
+      <li><b>Hidden = still</b><span>The widget stops painting while it's hidden or minimized.</span></li>
+      <li><b>1 canvas</b><span>Stage is a separate window, created when you open it and destroyed when you close it. Only the active template's visualizer is loaded; one canvas draw per frame, 60 fps cap, 30 on Low-impact.</span></li>
+      <li><b>SSE4.2</b><span>whisper.cpp is built for a portable baseline, so it runs on CPUs without AVX instead of crashing the first time you speak.</span></li>
+      <li><b>Low-impact</b><span>One switch in Settings for older PCs: less CPU and battery, no glow, no spin.</span></li>
+      <li><b>Mica</b><span>Native Windows 11 Mica glass; solid on Windows 10. No backdrop blur anywhere.</span></li>
+    </ol>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>

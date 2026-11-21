@@ -1,0 +1,51 @@
+/* ───────── Download ───────── */
+.dl { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 90px); align-items: end; padding: calc(var(--hdr) + clamp(48px, 7vw, 110px)) var(--gut) clamp(60px, 7vw, 100px); }
+.dl__head .label { margin: 0 0 18px; }
+.dl__head .h1 { font-size: clamp(4rem, 12vw, 12rem); view-transition-name: page-title; }
+.dl__os { margin: 28px 0 0; font: 500 13px var(--f-mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--dim); display: flex; gap: 10px; align-items: center; }
+.dl__opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--bone); }
+.opt { position: relative; isolation: isolate; display: flex; flex-direction: column; gap: 10px; padding: clamp(22px, 2.6vw, 36px); text-decoration: none; min-height: 340px; overflow: hidden; }
+.opt + .opt { border-left: 1.5px solid var(--bone); }
+.opt::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--acid); transform: scaleY(0); transform-origin: 50% 100%; transition: transform 0.45s var(--ease); }
+.opt:hover::before, .opt:focus-visible::before { transform: scaleY(1); }
+.opt:hover, .opt:focus-visible { color: var(--ink); }
+.opt:focus-visible { outline: none; }
+.opt__tag { color: var(--dim); font-size: 11px; }
+.opt--main .opt__tag { color: var(--acid); }
+.opt:hover .opt__tag, .opt:hover .opt__f { color: var(--ink); }
+.opt__t { font-weight: 800; font-stretch: 75%; font-size: clamp(3rem, 6vw, 6rem); line-height: 0.85; text-transform: uppercase; letter-spacing: -0.03em; margin-top: auto; }
+.opt__f { font-size: 12px; color: var(--dim); text-transform: none; letter-spacing: 0; word-break: break-all; }
+.opt__d { font-size: 16px; max-width: 30ch; }
+.opt__go { margin-top: 10px; padding-top: 14px; border-top: 1px solid currentColor; font-size: 12px; display: flex; justify-content: space-between; }
+.dl__away { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px clamp(22px, 2.6vw, 36px); border-top: 1.5px solid var(--bone); }
+.dl__away[hidden] { display: none; }
+.dl__away p { margin: 0; }
+@media (max-width: 900px) {
+  .dl { grid-template-columns: 1fr; }
+  .dl__opts { grid-template-columns: 1fr; }
+  .opt { min-height: 0; }
+  .opt + .opt { border-left: 0; border-top: 1.5px solid var(--bone); }
+  .opt__t { margin-top: 12px; }
+  .dl__away { flex-direction: column; align-items: flex-start; }
+}
+
+.dl-info { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 90px); padding: clamp(40px, 6vw, 80px) var(--gut) clamp(80px, 10vw, 140px); border-top: 1px solid var(--line); }
+.dl-info .label { margin: 0 0 18px; font-size: 12px; }
+.req, .steps { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--bone); }
+.req li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.req b { font-weight: 650; font-size: 1.2rem; font-stretch: 90%; }
+.req span { color: var(--dim); }
+.steps li { display: flex; gap: 18px; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 1.1rem; }
+.steps li > span { flex: none; font: 700 12px var(--f-mono); color: var(--acid); }
+@media (max-width: 860px) { .dl-info { grid-template-columns: 1fr; } .req li { grid-template-columns: 1fr; gap: 2px; } }
+
+.notes-rel { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 90px); padding: clamp(80px, 10vw, 140px) var(--gut); }
+.notes-rel header .label { margin: 0 0 18px; }
+.notes-rel .h2 { margin-bottom: 28px; }
+.notes-rel .h2 .serif { color: var(--verm); }
+.rel { border-top: 1.5px solid var(--ink); }
+.rel article { position: relative; padding: 22px 0 22px 6rem; border-bottom: 1px solid var(--line-ink); }
+.rel h3 { margin: 0 0 6px; font-weight: 700; font-size: 1.35rem; font-stretch: 88%; line-height: 1.2; }
+.rel h3 .mono { position: absolute; left: 0; top: 27px; font-size: 13px; color: var(--verm); }
+.rel p { margin: 0; color: #3c372f; }
+@media (max-width: 860px) { .notes-rel { grid-template-columns: 1fr; } }

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Stage — Wispify","desc":"Wispify's Stage turns your screen or your desktop wallpaper into a live, audio-reactive visualizer with synced lyrics. Play all 8 templates live in your browser.","path":"stage/","nav":"stage","og":"stage"}-->
+<script type="module" src="/src/js/stage.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <header class="shead">
+    <p class="label shead__l"><span>03 — Stage</span><span><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd> in the app</span></p>
+    <h1 class="mega shead__t" data-split>Stage</h1>
+    <p class="lede shead__d" data-reveal>A fullscreen visualizer, or a live wallpaper behind your desktop icons. Album art, audio-reactive bars, big synced lyrics, a clock and your queue. Pick a template and press play.</p>
+  </header>
+
+  <section class="deck" aria-label="Live Stage templates">
+    <div class="deck__screen">
+      <div class="deck__frame" data-cursor="Play">
+        <canvas id="stage-canvas" aria-label="Live preview of the selected Stage template"></canvas>
+        <button class="deck__play" id="stage-play" type="button" aria-pressed="false"><span class="deck__icon" aria-hidden="true"></span><span class="sr">Play the demo loop</span></button>
+      </div>
+      <div class="deck__bar">
+        <p class="deck__spec mono" id="spec" aria-live="polite"></p>
+        <div class="deck__covers" role="radiogroup" aria-label="Demo cover">
+          <button type="button" role="radio" aria-checked="true" data-art="0" style="--c:url('%B%img/art0-512.webp')"><span class="sr">Cover 1</span></button>
+          <button type="button" role="radio" aria-checked="false" data-art="1" style="--c:url('%B%img/art1-512.webp')"><span class="sr">Cover 2</span></button>
+          <button type="button" role="radio" aria-checked="false" data-art="2" style="--c:url('%B%img/art2-512.webp')"><span class="sr">Cover 3</span></button>
+          <button type="button" role="radio" aria-checked="false" data-art="3" style="--c:url('%B%img/art3-512.webp')"><span class="sr">Cover 4</span></button>
+          <button type="button" role="radio" aria-checked="false" data-art="5" style="--c:url('%B%img/art5-512.webp')"><span class="sr">Cover 5</span></button>
+          <button type="button" role="radio" aria-checked="false" data-art="6" style="--c:url('%B%img/art6-512.webp')"><span class="sr">Cover 6</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="deck__list" role="radiogroup" aria-label="Template" id="tpl-list">
+      <!-- filled from the template presets -->
+    </div>
+  </section>
+  <p class="deck__note wrap mono">Drawn in your browser by a port of the app's renderer, same presets. The queue orbit is simplified here. The captures below are the real app.</p>
+
+  <section class="gal" aria-labelledby="gal-h">
+    <header class="gal__head">
+      <p class="label">From the app · 2.1.4 · demo songs</p>
+      <h2 class="h2" id="gal-h" data-split>The real <span class="serif">thing</span></h2>
+    </header>
+    <div class="gal__grid">
+      <figure class="g g1" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-orbit-800.avif 800w, %B%img/stage-orbit-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 66vw" /><img src="%B%img/stage-orbit-800.webp" srcset="%B%img/stage-orbit-800.webp 800w, %B%img/stage-orbit-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 66vw" width="1600" height="900" loading="lazy" decoding="async" alt="Orbit: blurred blue album art, a disc ringed by white radial bars, lyrics on the left, clock and date top right, the queue orbit bottom left" /></picture><figcaption><b>Orbit</b><span>radial · 96 bars · lyrics left · queue</span></figcaption></figure>
+      <figure class="g g2" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-minimal-800.avif" /><img src="%B%img/stage-minimal-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Minimal: lyrics only, extra large and centred" /></picture><figcaption><b>Minimal</b><span>no visualizer · lyrics XL</span></figcaption></figure>
+      <figure class="g g3" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-vinyl-800.avif" /><img src="%B%img/stage-vinyl-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Vinyl: a black record with the cover as its label, dotted bars around it" /></picture><figcaption><b>Vinyl</b><span>record · 72 dots · lyrics bottom</span></figcaption></figure>
+      <figure class="g g4" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-wave-800.avif 800w, %B%img/stage-wave-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 66vw" /><img src="%B%img/stage-wave-800.webp" srcset="%B%img/stage-wave-800.webp 800w, %B%img/stage-wave-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 66vw" width="1600" height="900" loading="lazy" decoding="async" alt="Wave: rounded bars along the floor, bass in the middle" /></picture><figcaption><b>Wave</b><span>floor bars · 64 · round</span></figcaption></figure>
+      <figure class="g g5" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-ring-800.avif 800w, %B%img/stage-ring-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 50vw" /><img src="%B%img/stage-ring-800.webp" srcset="%B%img/stage-ring-800.webp 800w, %B%img/stage-ring-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 50vw" width="1600" height="900" loading="lazy" decoding="async" alt="Ring: one thin line breathing around the disc" /></picture><figcaption><b>Ring</b><span>one line · 128 points · no glow</span></figcaption></figure>
+      <figure class="g g6" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-neon-800.avif 800w, %B%img/stage-neon-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 50vw" /><img src="%B%img/stage-neon-800.webp" srcset="%B%img/stage-neon-800.webp 800w, %B%img/stage-neon-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 50vw" width="1600" height="900" loading="lazy" decoding="async" alt="Neon: cyan bars glowing on solid black" /></picture><figcaption><b>Neon</b><span>#7cf7ff · solid · 80 bars · 120%</span></figcaption></figure>
+      <figure class="g g7" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-cinematic-800.avif 800w, %B%img/stage-cinematic-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 58vw" /><img src="%B%img/stage-cinematic-800.webp" srcset="%B%img/stage-cinematic-800.webp 800w, %B%img/stage-cinematic-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Cinematic: big soft art, a low wave and a quiet title at the bottom" /></picture><figcaption><b>Cinematic</b><span>low wave · title bottom · soft blur</span></figcaption></figure>
+      <figure class="g g8" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-particles-800.avif" /><img src="%B%img/stage-particles-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Particles: warm motes drifting off the rim of the disc" /></picture><figcaption><b>Particles</b><span>#ffd28a · motes leave on the bass</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="smodes paper" aria-labelledby="smodes-h">
+    <div class="smodes__l">
+      <p class="label">Two ways to show it</p>
+      <h2 class="h2" id="smodes-h" data-split>Fullscreen,<br />or <span class="serif">behind your icons</span></h2>
+    </div>
+    <div class="smodes__r">
+      <dl class="press__dl" data-reveal>
+        <div><dt>Fullscreen</dt><dd>Takes the screen. <kbd>Esc</kbd> closes it.</dd></div>
+        <div><dt>Wallpaper</dt><dd>Sits behind the desktop icons as a live wallpaper, and repaints your normal wallpaper when it closes. Falls back to fullscreen if the desktop layer isn't available.</dd></div>
+        <div><dt>Lock</dt><dd>Makes the Stage click-through. Dim, Refresh and Close sit next to it.</dd></div>
+        <div><dt>Shortcut</dt><dd><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd> opens, unlocks or closes it. Rebindable.</dd></div>
+        <div><dt>Background</dt><dd>Blurred album art, a solid colour, or your own picture.</dd></div>
+        <div><dt>Customize</dt><dd>Per template: colour, visualizer, bar style, count and height, glow, lyrics on/off, size and position, title, clock, disc (art, vinyl, off) and spin, queue, background, blur and dim. Reset brings the preset back.</dd></div>
+        <div><dt>Lyrics</dt><dd>Synced lyrics from LRCLIB, word-timed when available and cached, with YouTube captions as a fallback. Hidden when a song has none.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>

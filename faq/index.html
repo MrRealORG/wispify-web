@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Docs & FAQ — Wispify","desc":"How to install Wispify, set up voice control, use the hotkeys and the Stage, fix common problems and build it from source.","path":"faq/","nav":"faq","og":"faq"}-->
+<script type="module" src="/src/js/doc.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <header class="page-head">
+    <p class="label"><span>05 — Docs &amp; FAQ</span><span>For 2.1.4</span></p>
+    <h1 class="h1" data-split>The <span class="serif">manual</span></h1>
+    <p class="lede" data-reveal style="margin-top:32px">Short answers first. Everything here matches the current app; if something doesn't, that's a bug worth reporting on GitHub.</p>
+  </header>
+  <section class="doc">
+    <nav class="doc__nav" aria-label="Sections">
+      <a href="#install">Install</a><a href="#voice">Voice</a><a href="#keys">Hotkeys</a><a href="#stage">Stage</a><a href="#player">Player &amp; sound</a><a href="#trouble">Troubleshooting</a><a href="#privacy">Privacy</a><a href="#build">Build from source</a>
+    </nav>
+    <div class="doc__body">
+      <section class="doc__sec" id="install">
+        <h2><span class="label">01</span>Install</h2>
+        <div class="qa">
+          <details open><summary>Which file do I download?</summary><div><p>From the <a class="ulink" href="https://github.com/MrRealORG/Wispify/releases/latest" rel="noopener">latest release</a>: <code>Wispify-x.y.z-setup-x64.exe</code> is the installer (per-user, no admin rights), <code>wispify-portable.exe</code> runs without installing.</p></div></details>
+          <details><summary>What do I need?</summary><div><p>Windows 10 or 11, 64-bit, with WebView2 (built into Windows). Any x86-64 CPU with SSE4.2 works; AVX is not required. Voice needs a microphone and a one-time model download of about 57 MB.</p></div></details>
+          <details><summary>Is it free?</summary><div><p>Yes. Wispify is free and MIT licensed.</p></div></details>
+          <details><summary>Mac or Linux?</summary><div><p>Not at the moment. Wispify is built and tested for Windows 10 and 11.</p></div></details>
+        </div>
+      </section>
+
+      <section class="doc__sec" id="voice">
+        <h2><span class="label">02</span>Voice</h2>
+        <div class="qa">
+          <details open><summary>How do I start?</summary><div><p>Press <b>Voice</b> once in the app; the model downloads with a progress bar. Then hold <kbd>F8</kbd>, say <em>“play”</em> and a song, and let go. The <a class="ulink" href="%B%voice/">Voice page</a> has the full list of commands and a playground.</p></div></details>
+          <details><summary>Push-to-talk, wake word or off?</summary><div><p><b>Push-to-talk</b> (default): the mic opens only while <kbd>F8</kbd> is held, or until you stop talking after a quick tap. <b>Wake word</b>: say <em>“Hey Wisp, next”</em>; only commands that start with the wake word run, so game voice chat can't skip your songs. <b>Off</b>: no listening. Settings → Voice.</p></div></details>
+          <details><summary>Does it work while I'm in a game?</summary><div><p>Yes. The voice agent runs natively in the background and the webview isn't involved until a command is understood. The confirmation toast is click-through and never takes focus. For exclusive-fullscreen games, where no window can be drawn on top, turn on the confirmation chime.</p></div></details>
+          <details><summary>Which voice model should I use?</summary><div><p>Whisper base.en is the default and the best balance. Tiny is faster and is what Low-impact mode picks; Small is more accurate if your CPU is fast. Switch in Settings → AI Voice.</p></div></details>
+          <details><summary>It misheard me.</summary><div><p>Push-to-talk forgives a lot: sound-alikes (“necks” → next), one-letter slips (“puase”) and bare song names. If it keeps missing, raise mic sensitivity in Settings → Voice, or speak the title and artist together: <em>“play Starboy by The Weeknd”</em>.</p></div></details>
+        </div>
+      </section>
+
+      <section class="doc__sec" id="keys">
+        <h2><span class="label">03</span>Hotkeys</h2>
+        <table class="tbl">
+          <thead><tr><th>Action</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>Push-to-talk</td><td><kbd>F8</kbd></td></tr>
+            <tr><td>Play / pause</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>P</kbd></td></tr>
+            <tr><td>Next / previous</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>N</kbd> / <kbd>B</kbd></td></tr>
+            <tr><td>Like</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>L</kbd></td></tr>
+            <tr><td>Volume</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>PgUp</kbd> / <kbd>PgDn</kbd></td></tr>
+            <tr><td>Slowed / reverb</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>S</kbd> / <kbd>R</kbd></td></tr>
+            <tr><td>Show / hide</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></td></tr>
+            <tr><td>Stage</td><td><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd></td></tr>
+          </tbody>
+        </table>
+        <p>Rebind any of them in <b>Settings → Keys</b>. Hardware media keys and the Windows media flyout also control Wispify.</p>
+      </section>
+
+      <section class="doc__sec" id="stage">
+        <h2><span class="label">04</span>Stage</h2>
+        <div class="qa">
+          <details open><summary>How do I open it?</summary><div><p><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd>, or ⋯ More → Stage. Pick Fullscreen or Wallpaper in the sheet, then a template. <kbd>Esc</kbd> closes fullscreen.</p></div></details>
+          <details><summary>What does Wallpaper mode do?</summary><div><p>It places the Stage behind your desktop icons as a live wallpaper and restores your normal wallpaper when it closes. If Windows doesn't offer that desktop layer, it falls back to fullscreen. <b>Lock</b> makes it click-through.</p></div></details>
+          <details><summary>Why are there no lyrics for some songs?</summary><div><p>Lyrics come from LRCLIB (word-timed when available), with YouTube captions and YouTube Music lyrics as fallbacks. When none of them has the song, the Stage hides the lyrics instead of showing something wrong.</p></div></details>
+          <details><summary>Will it slow my PC down?</summary><div><p>The Stage window only exists while it's open, loads just the active template's visualizer, draws once per frame and caps at 60 fps (30 on Low-impact, with no glow or spin). It stops drawing when the music is paused or the Stage is covered.</p></div></details>
+        </div>
+      </section>
+
+      <section class="doc__sec" id="player">
+        <h2><span class="label">05</span>Player &amp; sound</h2>
+        <div class="qa">
+          <details open><summary>Where does the music come from?</summary><div><p>One search covers Audius, JioSaavn, YouTube Music, Deezer, iTunes, Internet Archive and radio stations. You can download songs to listen offline and save them to your music folder.</p></div></details>
+          <details><summary>Where did the buttons go?</summary><div><p>The main screen is kept calm on purpose. Library, Discover, Download, Save to folder, Copy link, Show video, Stop, Shuffle/Repeat, Sleep timer, Player style and Settings are all in the <b>⋯ More</b> menu. The Sound studio opens from the dock.</p></div></details>
+          <details><summary>What is Low-impact mode?</summary><div><p>A switch in Settings for older PCs: less CPU and battery. It picks the Tiny voice model, halves the Stage frame rate and turns off glow and spin.</p></div></details>
+          <details><summary>Does closing the window quit?</summary><div><p>No. Close hides Wispify to the tray, so music and voice keep running. Quit from the tray icon.</p></div></details>
+        </div>
+      </section>
+
+      <section class="doc__sec" id="trouble">
+        <h2><span class="label">06</span>Troubleshooting</h2>
+        <div class="qa">
+          <details><summary>Voice says it can't use the microphone.</summary><div><p>The voice screen tells you whether it's a permission problem or a missing mic. For permission, open Windows Settings → Privacy &amp; security → Microphone and allow desktop apps. Then press <b>Try again</b>, or <b>Type instead</b>.</p></div></details>
+          <details><summary>The app closes the first time I speak.</summary><div><p>That was a bug in versions before 2.0 on CPUs without AVX. Since 2.0 Wispify is built for a portable SSE4.2 baseline and runs whisper behind a crash guard. Update to the latest release.</p></div></details>
+          <details><summary>A YouTube song won't play.</summary><div><p>Since 2.1.3, songs that resolve but won't play fall back to YouTube's official player automatically instead of being skipped.</p></div></details>
+          <details><summary>Wallpaper mode shows a fullscreen Stage instead.</summary><div><p>That's the fallback when Windows doesn't expose the desktop layer. Fullscreen works the same way; close it with <kbd>Esc</kbd>.</p></div></details>
+        </div>
+      </section>
+
+      <section class="doc__sec" id="privacy">
+        <h2><span class="label">07</span>Privacy</h2>
+        <p>Speech is transcribed on your PC by whisper.cpp. In push-to-talk the mic is open only while you hold the key. In wake-word mode a lightweight local voice gate listens for speech and only runs Whisper when it hears some. Searches, streams and lyrics are fetched from the music and lyrics services listed above, as any player would.</p>
+        <p>This website has no analytics or cookies. The voice playground runs in your browser; the optional Mic button uses your browser's own speech service.</p>
+      </section>
+
+      <section class="doc__sec" id="build">
+        <h2><span class="label">08</span>Build from source</h2>
+        <p>You need Node.js 20+, Rust stable and the Tauri 2 prerequisites (on Windows: MSVC build tools, WebView2, CMake, LLVM/Clang).</p>
+<pre><code>git clone https://github.com/MrRealORG/Wispify.git
+cd Wispify
+npm ci
+npm run tauri dev     # run the app
+npx tauri build       # release build → src-tauri/target/release/</code></pre>
+        <p>Tests: <code>npm run build &amp;&amp; npm test</code> for the UI, <code>cargo test --manifest-path src-tauri/Cargo.toml --lib</code> for Rust. Keep the portable SSE4.2 target in <code>src-tauri/.cargo/config.toml</code>: a native build crashes on older CPUs.</p>
+      </section>
+    </div>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>

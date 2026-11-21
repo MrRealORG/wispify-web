@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Changelog — Wispify","desc":"Every Wispify release: Stage, the orbit queue, offline voice control, and the fixes that made it light enough for low-spec PCs.","path":"changelog/","nav":"changelog","og":"changelog"}-->
+<script type="module" src="/src/js/doc.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <header class="page-head">
+    <p class="label"><span>04 — Changelog</span><span>SemVer · newest first</span></p>
+    <h1 class="h1" data-split>Every<br /><span class="serif">pressing</span></h1>
+    <p class="lede" data-reveal style="margin-top:32px">What changed in each version of the app, from the big 2.0 rewrite to the latest patch.</p>
+  </header>
+  <section class="doc">
+    <nav class="doc__nav" aria-label="Versions"><!--cl-nav--><a href="#v2-1-4">2.1.4</a><a href="#v2-1-3">2.1.3</a><a href="#v2-1-2">2.1.2</a><a href="#v2-1-1">2.1.1</a><a href="#v2-1-0">2.1.0</a><a href="#v2-0-1">2.0.1</a><a href="#v2-0-0">2.0.0</a><a href="#v0-14-0">0.14.0</a><!--/cl-nav--></nav>
+    <div class="doc__body cl-list"><!--cl-body--><article class="cl" id="v2-1-4" data-reveal><header class="cl__v"><h2>2.1.4</h2><p class="mono">2026-11-16</p></header><div class="cl__b"><h3 class="cl__h">Fixed</h3><ul><li>Songs that fall back to YouTube&#x27;s official player leave the &quot;loading&quot; state and can be paused (state now comes from the player itself, with an optimistic pause).</li><li>Sharper Stage background: a real blur at half resolution, your own picture is left unblurred, and covers load at 1200 px.</li></ul></div></article><article class="cl" id="v2-1-3" data-reveal><header class="cl__v"><h2>2.1.3</h2><p class="mono">2026-11-16</p></header><div class="cl__b"><h3 class="cl__h">Fixed</h3><ul><li>YouTube songs that resolve but won&#x27;t play fall back to the official player instead of being skipped; after two such songs it goes straight there.</li><li>Wallpaper Stage keeps its desktop (WorkerW) layer on Windows 11 24H2.</li></ul></div></article><article class="cl" id="v2-1-2" data-reveal><header class="cl__v"><h2>2.1.2</h2><p class="mono">2026-11-16</p></header><div class="cl__b"><h3 class="cl__h">Fixed</h3><ul><li>YouTube no longer skips every song (direct stream first, the proxy only as an upgrade, a plain retry bypasses the proxy).</li><li>Downloads send a matching user agent, so they work again.</li><li>The Stage opens reliably (the main window and the Stage share the same WebView2 settings).</li></ul></div></article><article class="cl" id="v2-1-1" data-reveal><header class="cl__v"><h2>2.1.1</h2><p class="mono">2026-11-16</p></header><div class="cl__b"><h3 class="cl__h">Changed</h3><ul><li>One seek bar, a transport-only compact view, a lyrics strip under the player and grouped Settings. The title label is off by default.</li><li>Voice: anti-aliased resampling, adaptive trim and gain normalisation, beam search, and a forgiving push-to-talk grammar: sound-alikes, one-edit near misses and bare song names. New speed, nightcore and bass commands and clearer toasts.</li><li>Effects (reverb, bass, the spectrum) work on YouTube and other non-CORS streams through a local range proxy. Real nightcore, speed and slowed; reverb costs no CPU when off.</li><li>Lyrics: smarter title and artist cleanup with duration matching, LRCLIB search fallbacks, then YouTube captions and YouTube Music lyrics.</li><li>Stage: adaptive 30/60 fps, pauses when covered, lean FFT messaging between windows.</li><li>The widget stops painting while hidden or minimized.</li></ul></div></article><article class="cl" id="v2-1-0" data-reveal><header class="cl__v"><h2>2.1.0</h2><p class="mono">2026-11-16</p></header><div class="cl__b"><h3 class="cl__h">Added</h3>
+<ul>
+<li><strong>New app icon</strong> — a royal-blue squircle with three rounded bars and a wisp
+  curl. Used for the exe, installer, tray, favicon and the in-app logo.</li>
+<li><strong>Stage</strong> — a fullscreen / live-wallpaper visualizer (⋯ → Stage, or
+  <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd>). Album art as a slowly turning
+  disc with audio-reactive bars and a soft glow, big karaoke-style synced
+  lyrics (LRCLIB, word-timed when available, cached; hidden gracefully when a
+  song has none), clock + date, and the queue on a curved "orbit" slider with
+  Refresh · Dim · Lock · Close buttons. Background: blurred album art, solid,
+  or your own picture (no bundled wallpapers).</li>
+<li><strong>Two modes:</strong> <em>Fullscreen</em> (Esc closes) and <em>Wallpaper</em> — on Windows the
+    Stage sits behind the desktop icons (WorkerW), detaches and repaints the
+    wallpaper on close; falls back to fullscreen when the desktop layer isn't
+    available. <strong>Lock</strong> makes it click-through.</li>
+<li><strong>8 templates:</strong> Orbit, Minimal, Vinyl, Wave, Ring, Neon, Cinematic,
+    Particles. Each one is customizable (colour, visualizer, bar style /
+    count / height, glow, lyrics on/off + size + position, song title, clock,
+    disc art/vinyl/off + spin, queue slider, background + blur + dim) and
+    saved per template; Reset restores the preset.</li>
+<li>Real audio reactivity: the main window's WebAudio analyser streams 64 FFT
+    bins to the Stage (~30 fps, 15 on Low-impact). Sources WebAudio can't tap
+    (YouTube embed, CORS-locked streams) get a gentle synthetic pulse.</li>
+<li>Light by design: separate window created on open and destroyed on close,
+    only the active template's visualizer is loaded, one canvas-2D draw per
+    frame (no shadowBlur, no CSS filters), capped at 60 fps (30 on Low-impact,
+    no glow / spin), and the loop stops when paused or hidden.</li>
+<li><strong>Orbit queue:</strong> Up next opens as a curved slider — scroll, drag or arrow
+  keys turn it with a spring, the focused song grows, click / Enter plays.
+  The list view (remove / clear) is one tap away.</li>
+<li>Settings → Stage (mode + "Open Stage…"); "Stage on/off" is a rebindable
+  global shortcut.</li>
+<li>Hardware media keys and the OS media flyout (Media Session).</li>
+</ul>
+<h3 class="cl__h">Changed</h3>
+<ul>
+<li><strong>Calmer main screen:</strong> art → title → one play row → a small dock (Up next ·
+  Like · Volume · Sound studio). Header is just Voice and <strong>⋯ More</strong>. Nothing
+  was removed: Library, Discover, Download, Save to folder, Copy link, Show
+  video, Stop, Shuffle/Repeat, Sleep timer, Player style and Settings all
+  live in the ⋯ menu; Sound studio opens as a sheet.</li>
+<li><strong>Voice screen:</strong> a live mic orb that follows your level, a 10-second
+  countdown line, clear phases (Getting the mic ready → Listening →
+  Understanding) and errors that stay on screen with <strong>Try again</strong> / <strong>Type
+  instead</strong> (permission vs. missing-mic messages). The voice hotkey on an
+  error retries.</li>
+<li>Spring easing everywhere sheets open; every new animation is
+  transform/opacity only and stops with Animations off / Low-impact.</li>
+</ul>
+<h3 class="cl__h">Fixed</h3>
+<ul>
+<li>Shuffle never ended (and could replay songs); a shuffle pass now plays each
+  song once and stops unless Repeat is on.</li>
+<li>Previous with shuffle on jumped to the neighbouring row instead of the song
+  you actually heard before.</li>
+<li>"Play next" was ignored while shuffle was on.</li>
+<li>Repeat-one rebuilt the audio element and re-fetched the stream each loop
+  (gap + extra network); it now loops in place.</li>
+<li>Queue edits left shuffle/history positions pointing at the wrong songs.</li>
+<li>Esc in a search field with text collapsed the widget (stale key handler)
+  instead of clearing the field.</li>
+<li>Mouse wheel over the volume slider did nothing.</li>
+<li>Every panel change fired a second native window resize (visible jank).</li>
+<li>Changing the collapsed style resized from inside a React state updater
+  (ran twice in StrictMode).</li>
+<li>Hold-to-talk release could be missed while the voice phase changed.</li>
+<li>Tray "Show Wispify" / tray click didn't restore a minimized widget.</li>
+</ul></div></article><article class="cl" id="v2-0-1" data-reveal><header class="cl__v"><h2>2.0.1</h2><p class="mono">2026-11-01</p></header><div class="cl__b"><h3 class="cl__h">Fixed</h3>
+<ul>
+<li><strong>No more native Windows title bar / see-through window.</strong> The old
+  accent-policy acrylic/blur plus a <code>SetWindowRgn</code> rounded clip made Windows
+  draw the classic caption (title, — ☐ ✕) over Wispify's own title bar and
+  left a washed, translucent "Aero Basic" panel. The window is now frameless
+  for real (caption/sysmenu/sizing styles are stripped after every style
+  rebuild), opaque Midnight Glass (<code>#0b0b12</code>) by default, with DWM rounded
+  corners + native shadow on Windows 11. "Glass" now means real Windows 11
+  Mica only and stays near-opaque; Windows 10 stays solid.</li>
+</ul>
+<h3 class="cl__h">Changed</h3>
+<ul>
+<li><strong>Faster:</strong> startup JS 553 → 370 KB (framer-motion removed), Settings /
+  Library / Onboarding load lazily (prefetched on idle), 5-minute search
+  cache, preconnect to search hosts, no backdrop blur anywhere.</li>
+<li><strong>Ultra-minimal main screen:</strong> player-layout chips moved to Settings, one
+  quiet meta line, "FULL" badges dropped (only previews are tagged), no
+  eyebrow/filler copy, monochrome surfaces with one accent.</li>
+<li><strong>New UI sounds:</strong> original synthesized macOS-style pops / glass tinks /
+  felt clicks, all &lt; 150 ms and ≤ -20 dBFS; default effects volume 50.</li>
+<li><strong>Default voice model: Whisper base.en q5_1</strong> (see
+  docs/VOICE_MODEL_BENCH.md). Pressing Voice the first time downloads it
+  with progress; Tiny / Small remain selectable.</li>
+</ul></div></article><article class="cl" id="v2-0-0" data-reveal><header class="cl__v"><h2>2.0.0</h2><p class="mono">2026-11-01</p></header><div class="cl__b"><p>The "play it while you game" release: a background voice agent, a new look,
+and the crash + CPU fixes low-spec PCs needed.</p>
+<h3 class="cl__h">Added</h3>
+<ul>
+<li><strong>Background voice control (Rust voice agent).</strong> Works while a game is
+  fullscreen and Wispify is in the background — the webview is never
+  involved until a command is understood.</li>
+<li><strong>Push-to-talk</strong> (default, <code>F8</code>): the mic opens only while the key is held
+    (or until you stop talking after a quick tap) and closes right after —
+    zero CPU when idle.</li>
+<li><strong>Wake word</strong> ("Hey Wisp, next"): an always-on, near-zero-CPU energy VAD
+    gate; whisper only runs on speech, and only commands that start with the
+    wake word execute, so game voice chat can't skip your songs.</li>
+<li>Commands: <code>play &lt;song/artist&gt;</code>, <code>next</code>, <code>previous</code>/<code>back</code>,
+    <code>pause</code>/<code>hold</code>/<code>stop</code>, <code>resume</code>, <code>save</code>, <code>volume up/down</code>, <code>volume 40</code>,
+    <code>mute</code>, <code>slowed on/off</code>, <code>reverb on/off</code>, <code>repeat [one/all/off]</code>,
+    <code>shuffle [on/off]</code>, <code>what's playing</code>.</li>
+<li>Grammar lives in Rust (<code>src-tauri/src/commands.rs</code>) with unit tests.</li>
+<li><strong>Overlay toast</strong> ("Playing Blinding Lights", "Next", "Saved"): a tiny
+  click-through, topmost window shown with <code>SW_SHOWNOACTIVATE</code> — it never
+  steals focus from your game. Optional confirmation chime for exclusive
+  fullscreen games where no window can be drawn.</li>
+<li><strong>New global hotkeys:</strong> push-to-talk, volume up/down, slowed, reverb,
+  shuffle, repeat, show/hide — plus game-friendly defaults for next/previous/save.</li>
+<li><strong>Settings → Voice control:</strong> mode, wake word, mic sensitivity, toast and
+  chime switches, and a "What can I say?" cheat sheet.</li>
+<li>Issue templates, PR template, this changelog.</li>
+</ul>
+<h3 class="cl__h">Changed</h3>
+<ul>
+<li><strong>New "Midnight Glass" design:</strong> Windows 11 caption buttons (minimize,
+  mini-player, close-to-tray with the red hover), Segoe UI Variable
+  typography, one cohesive control set (segmented tabs, switches, sliders,
+  fields, thin overlay scrollbars), a calm violet default accent.</li>
+<li>Close now hides to the tray (music and voice keep running); quit from the tray.</li>
+<li>Windows build workflow: portable SIMD build, unit tests before bundling,
+  versioned installer name, GitHub Release on <code>v*</code> tags.</li>
+</ul>
+<h3 class="cl__h">Fixed</h3>
+<ul>
+<li><strong>Crash when speaking.</strong> whisper.cpp was compiled with <code>GGML_NATIVE=ON</code>, so
+  the CI runner's AVX2/AVX-512 instructions were baked into the exe; on CPUs
+  without them the app died with an illegal-instruction fault the first time
+  whisper ran. Builds now target a portable SSE4.2 baseline
+  (<code>src-tauri/.cargo/config.toml</code> + workflow env).</li>
+<li>Release builds used <code>panic = "abort"</code>, so any panic on a background thread
+  killed the whole app. Now <code>unwind</code>, and whisper + the voice worker run
+  behind <code>catch_unwind</code>.</li>
+<li>Microphones that deliver 32-bit integer / unsigned 16-bit samples are
+  supported instead of failing.</li>
+<li>VAD buffer underflow when a speech segment ended mid-chunk (found by the new tests).</li>
+<li>Search results were rendered <em>below</em> the home hero and the volume row (looked
+  like search did nothing); they now appear right under the search box.</li>
+<li>Scrolling over the expanded panel or Settings changed the volume.</li>
+<li>Header buttons overflowed and pushed the window controls off-screen while a
+  song was playing.</li>
+</ul>
+<h3 class="cl__h">Performance</h3>
+<ul>
+<li>whisper encodes only the length of the spoken command (<code>audio_ctx</code>) instead
+  of a 30-second window, single pass, no temperature fallback — a fraction of
+  the old CPU time per command.</li>
+<li>WebAudio graph and UI-sound contexts are suspended while nothing plays
+  (an open AudioContext renders silence on the audio thread forever).</li>
+<li>Playback clock re-renders at 1 Hz while the widget is unfocused.</li>
+<li>Looping CSS animations pause whenever the widget is not the focused window.</li>
+<li>The YouTube embed handshake stops polling once the player answers.</li>
+<li>Overlays no longer use backdrop blur inside the native window.</li>
+</ul></div></article><article class="cl" id="v0-14-0" data-reveal><header class="cl__v"><h2>0.14.0</h2><p class="mono">—</p></header><div class="cl__b"><ul>
+<li>Minimal motion by default, honest switches, no launch splash.</li>
+</ul></div></article><!--/cl-body--></div>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>

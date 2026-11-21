@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--@page {"title":"Download Wispify for Windows","desc":"Download Wispify 2.1.4 for Windows 10 and 11: the installer or the portable exe. Free and MIT licensed. Requirements, first-run steps and release notes.","path":"download/","nav":"download","og":"download"}-->
+<script type="module" src="/src/js/download.js"></script>
+</head>
+<body class="no-hero">
+<!--@header-->
+<main id="main">
+  <section class="dl">
+    <div class="dl__head">
+      <p class="label"><span>07 — Download</span></p>
+      <h1 class="h1" data-split>Get<br />Wispify</h1>
+      <p class="dl__os" id="os" data-reveal>Wispify is for Windows 10 and 11 (x64).</p>
+    </div>
+    <div class="dl__opts" data-reveal>
+      <a class="opt opt--main" href="https://github.com/MrRealORG/Wispify/releases/latest" rel="noopener" id="opt-installer">
+        <span class="opt__tag mono">Recommended</span>
+        <span class="opt__t">Installer</span>
+        <span class="opt__f mono">Wispify-2.1.4-setup-x64.exe</span>
+        <span class="opt__d">Installs for your user only, so no admin rights are needed.</span>
+        <span class="opt__go mono">Latest release on GitHub <span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="opt" href="https://github.com/MrRealORG/Wispify/releases/latest" rel="noopener">
+        <span class="opt__tag mono">No install</span>
+        <span class="opt__t">Portable</span>
+        <span class="opt__f mono">wispify-portable.exe</span>
+        <span class="opt__d">One file. Put it anywhere, run it, delete it when you're done.</span>
+        <span class="opt__go mono">Latest release on GitHub <span aria-hidden="true">↗</span></span>
+      </a>
+      <div class="dl__away" id="away" hidden>
+        <p>Not on your PC right now? Send yourself the link.</p>
+        <button class="btn" type="button" id="copy">Copy download link</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dl-info">
+    <div class="dl-info__col" data-reveal>
+      <h2 class="label">Requirements</h2>
+      <ul class="req">
+        <li><b>Windows 10 or 11</b><span>64-bit (x64)</span></li>
+        <li><b>WebView2</b><span>Built into Windows 11 and current Windows 10</span></li>
+        <li><b>Any x86-64 CPU</b><span>SSE4.2 is enough; no AVX needed</span></li>
+        <li><b>≈57 MB once</b><span>For the voice model, on your first Voice press</span></li>
+        <li><b>A microphone</b><span>Only if you want voice control</span></li>
+      </ul>
+    </div>
+    <div class="dl-info__col" data-reveal style="--d:.08s">
+      <h2 class="label">First run</h2>
+      <ol class="steps">
+        <li><span>1</span>Run the installer, or the portable exe.</li>
+        <li><span>2</span>Search a song and press play. That's the player.</li>
+        <li><span>3</span>Press <b>Voice</b> once. Whisper base.en downloads with a progress bar.</li>
+        <li><span>4</span>Hold <kbd>F8</kbd>, say <em>“play”</em> and a song. Let go.</li>
+        <li><span>5</span>Press <kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd> for the Stage.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="notes-rel paper" aria-labelledby="rel-h">
+    <header>
+      <p class="label">Release notes</p>
+      <h2 class="h2" id="rel-h" data-split>What's new<br /><span class="serif">in 2.1</span></h2>
+      <a class="ulink mono" href="%B%changelog/">Full changelog →</a>
+    </header>
+    <div class="rel" data-reveal>
+      <article><h3><span class="mono">2.1.4</span>Smoother YouTube fallback, sharper Stage</h3><p>Songs played through YouTube's official player leave the loading state and pause properly. The Stage background is sharper (real blur at half resolution; your own picture stays unblurred) and covers load at 1200 px.</p></article>
+      <article><h3><span class="mono">2.1.3</span>Fewer skipped songs</h3><p>YouTube songs that resolve but won't play fall back to the official player instead of being skipped. The wallpaper Stage keeps its desktop layer on Windows 11 24H2.</p></article>
+      <article><h3><span class="mono">2.1.2</span>YouTube and Stage fixes</h3><p>YouTube no longer skips every song, downloads work again, and the Stage opens reliably.</p></article>
+      <article><h3><span class="mono">2.1.1</span>One seek bar, smarter voice and lyrics</h3><p>A simpler compact view and grouped Settings. Voice got cleaner audio processing, beam search and the forgiving push-to-talk grammar (sound-alikes, near misses, bare song names) plus speed, nightcore and bass commands. Effects now work on every source, and lyrics are found for more songs.</p></article>
+      <article><h3><span class="mono">2.1.0</span>Stage, the orbit queue, a calmer player</h3><p>The Stage visualizer with 8 templates, the orbit queue, the ⋯ More menu, a new voice screen, media keys, the new icon, and a long list of shuffle and repeat fixes.</p></article>
+    </div>
+  </section>
+</main>
+<!--@footer-->
+</body>
+</html>
