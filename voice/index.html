@@ -8,8 +8,8 @@
 <!--@header-->
 <main id="main">
   <header class="page-head vhead">
-    <p class="label"><span>02 — Voice</span><span>Offline · whisper.cpp · base.en</span></p>
-    <h1 class="h1" data-split>Talk to<br />your <span class="serif">music</span></h1>
+    <p class="label"><span>Voice</span><span>Offline · whisper.cpp · base.en</span></p>
+    <h1 class="h1" data-split>Talk to<br />your <span class="soft">music</span></h1>
     <p class="lede" data-reveal>Hold <kbd>F8</kbd> anywhere in Windows, even with a fullscreen game focused, and say what you want. Your PC turns the speech into text; the grammar below turns the text into an action.</p>
   </header>
 
@@ -25,12 +25,20 @@
     </ol>
   </section>
 
-  <section class="modes" aria-labelledby="modes-h">
-    <h2 class="h2" id="modes-h" data-split>Three ways<br /><span class="serif">to listen</span></h2>
-    <div class="modes__grid">
-      <article data-reveal><p class="label">Default</p><h3 class="h3">Push-to-talk</h3><p>Hold <kbd>F8</kbd>, speak, let go. Zero CPU when idle; the mic is closed the rest of the time. The most forgiving mode: sound-alikes, near misses and bare song names all work, because the key press already says “this is for Wispify”.</p></article>
-      <article data-reveal style="--d:.08s"><p class="label">Hands free</p><h3 class="h3">Wake word</h3><p>Say <em>“Hey Wisp, next.”</em> An always-on, near-zero-CPU voice gate wakes Whisper only on speech, and only commands that start with the wake word run, so game voice chat can't skip your songs.</p></article>
-      <article data-reveal style="--d:.16s"><p class="label">Quiet</p><h3 class="h3">Off</h3><p>No listening at all. Hotkeys and everything else keep working. Change modes any time in Settings → Voice.</p></article>
+  <section class="modes sec" aria-labelledby="modes-h">
+    <div class="modes__l">
+      <p class="label">Settings → Voice</p>
+      <h2 class="h2" id="modes-h" data-split>Three ways<br /><span class="soft">to listen.</span></h2>
+    </div>
+    <div class="modes__panel panel" data-reveal>
+      <div class="modes__bar"><div class="seg" role="tablist" aria-label="Listening mode">
+        <button type="button" role="tab" aria-selected="true" aria-pressed="true" aria-controls="mode-ptt" id="t-ptt">Push-to-talk</button>
+        <button type="button" role="tab" aria-selected="false" aria-pressed="false" aria-controls="mode-wake" id="t-wake">Wake word</button>
+        <button type="button" role="tab" aria-selected="false" aria-pressed="false" aria-controls="mode-off" id="t-off">Off</button>
+      </div></div>
+      <article class="mode" id="mode-ptt" role="tabpanel" aria-labelledby="t-ptt"><p class="label">Default</p><h3 class="h3">Hold <kbd>F8</kbd>, speak, let go.</h3><p>Zero CPU when idle; the mic is closed the rest of the time. The most forgiving mode: sound-alikes, near misses and bare song names all work, because the key press already says “this is for Wispify”.</p></article>
+      <article class="mode" id="mode-wake" role="tabpanel" aria-labelledby="t-wake" hidden><p class="label">Hands free</p><h3 class="h3">Say “Hey Wisp, next.”</h3><p>An always-on, near-zero-CPU voice gate wakes Whisper only on speech, and only commands that start with the wake word run, so game voice chat can't skip your songs.</p></article>
+      <article class="mode" id="mode-off" role="tabpanel" aria-labelledby="t-off" hidden><p class="label">Quiet</p><h3 class="h3">No listening at all.</h3><p>Hotkeys and everything else keep working. Change modes any time in Settings → Voice.</p></article>
     </div>
   </section>
 
@@ -103,7 +111,7 @@
   <section class="models" aria-labelledby="models-h">
     <div class="models__text">
       <p class="label">Under the hood</p>
-      <h2 class="h2" id="models-h" data-split>The model<br /><span class="serif">lives on your PC</span></h2>
+      <h2 class="h2" id="models-h" data-split>The model<br /><span class="soft">lives on your PC</span></h2>
       <p class="prose" data-reveal>The first time you press Voice, Wispify downloads the selected Whisper model once, with progress. After that nothing you say leaves your computer. Base.en is the default: tiny mis-heard a clean test phrase, and song titles are exactly where that hurts. Small is there if your CPU is fast.</p>
     </div>
     <div class="models__tbl" data-reveal>

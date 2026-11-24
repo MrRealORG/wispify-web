@@ -9,110 +9,163 @@
 <main id="main">
 
   <section class="hero" aria-labelledby="hero-title">
-    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
-    <noscript><img class="hero__poster" src="%B%img/hero-poster.webp" alt="" width="1600" height="1000" /></noscript>
-    <div class="hero__grain" aria-hidden="true"></div>
-
-    <div class="hero__meta mono" aria-hidden="true">
-      <p><span class="live-dot" id="live-dot"></span> Side A — live stage</p>
-      <p>Template 01 / Orbit</p>
-      <p>Demo loop · 100 bpm · original</p>
-      <div class="meter" id="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    </div>
-
-    <button class="hero__play" id="hero-play" type="button" aria-pressed="false" data-cursor="Play">
-      <svg class="hero__ring" viewBox="0 0 200 200" aria-hidden="true">
-        <defs><path id="ringpath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-        <text><textPath href="#ringpath">Play the demo loop · Play the demo loop · Play the demo loop · </textPath></text>
-      </svg>
-      <span class="hero__glyph" aria-hidden="true"></span>
-      <span class="sr" id="hero-play-label">Play the demo loop</span>
-    </button>
-
     <div class="hero__copy">
-      <h1 class="mega hero__title" id="hero-title" data-split>Hold F8.<br /><span class="hero__l2">Say it.</span></h1>
-      <p class="hero__sub" data-reveal style="--d:.35s"><span class="serif">The song is already playing</span> — even with your game in focus. Wispify is a tiny Windows music player you can talk to, offline.</p>
-      <div class="hero__cta" data-reveal style="--d:.5s">
-        <a class="btn btn--acid" href="%B%download/">Download for Windows <span class="arr" aria-hidden="true">→</span></a>
+      <p class="hero__eyebrow" data-reveal><img src="%B%img/logo-64.png" width="20" height="20" alt="" /><span>Wispify 2.1.4</span><span class="hero__sep"></span><span>Windows 10 &amp; 11</span></p>
+      <h1 class="mega hero__title" id="hero-title" data-split>Hold F8.<br /><span class="soft">Say the song.</span></h1>
+      <p class="lede hero__sub" data-reveal style="--d:.25s">A tiny music player that sits on your desktop and listens only when you ask. It's playing before you let go of the key, even with a game in focus. Offline, free, open source.</p>
+      <div class="hero__cta" data-reveal style="--d:.35s">
+        <a class="btn btn--accent" href="%B%download/"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Download for Windows</a>
         <a class="btn" href="%B%voice/">Try the voice playground</a>
       </div>
+      <p class="hero__keys" data-reveal style="--d:.45s"><span><kbd>F8</kbd> hold to talk</span><span><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>V</kbd> Stage</span><span><kbd>/</kbd> search</span></p>
     </div>
 
-    <div class="hero__lyric" aria-live="off">
-      <span class="label" id="lyric-n">Lyric 01 / 06 — Low Orbit, Nightglass</span>
-      <p class="serif" id="lyric">City lights are folding into blue</p>
+    <div class="hero__desk" data-reveal style="--d:.15s">
+      <div class="win player" id="player" data-playing="false">
+        <div class="win__bar">
+          <span class="win__dot" id="p-dot"></span>
+          <img class="win__logo" src="%B%img/logo-64.png" width="16" height="16" alt="" />
+          <span class="win__brand">wispify</span>
+          <span class="win__acts">
+            <a class="hdr-btn" href="#voice-demo" aria-label="Voice"><svg class="i" aria-hidden="true"><use href="#i-mic"/></svg></a>
+            <button class="hdr-btn" type="button" id="p-more" aria-label="More" aria-expanded="false" aria-controls="p-menu"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+          </span>
+          <span class="caption" aria-hidden="true">
+            <i><svg viewBox="0 0 10 10"><path d="M0.5 5h9" stroke="currentColor" stroke-width="1"/></svg></i>
+            <i><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="2.5" width="7" height="7" rx="1.2"/><path d="M2.5 2.5V1.7a1.2 1.2 0 0 1 1.2-1.2h4.6a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-1.2 1.2h-.8"/></svg></i>
+            <i><svg viewBox="0 0 10 10"><path d="M0.6 0.6l8.8 8.8M9.4 0.6L0.6 9.4" stroke="currentColor" stroke-width="1"/></svg></i>
+          </span>
+        </div>
+        <div class="player__body">
+          <a class="search-launch" href="%B%features/#player"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span>Search songs or artists</span><kbd>/</kbd></a>
+          <div class="orbit" id="p-orbit">
+            <div class="orbit__grooves"><img class="orbit__cover" id="p-cover" src="%B%img/art0-512.webp" width="512" height="512" alt="" /></div>
+            <span class="orbit__spindle"></span>
+          </div>
+          <div class="song">
+            <p class="song__t" id="p-title">Low Orbit</p>
+            <p class="song__a" id="p-artist">Nightglass</p>
+          </div>
+          <div class="seek" aria-hidden="true">
+            <div class="seek__track"><i class="seek__fill" id="p-fill"></i></div>
+            <div class="seek__time"><span id="p-cur">0:00</span><span id="p-dur">3:24</span></div>
+          </div>
+          <div class="transport">
+            <button class="t-btn" type="button" aria-label="Shuffle" data-toggle><svg class="i" aria-hidden="true"><use href="#i-shuffle"/></svg></button>
+            <button class="t-btn t-btn--big" type="button" id="p-prev" aria-label="Previous song"><svg class="i i--f" aria-hidden="true"><use href="#i-prev"/></svg></button>
+            <button class="t-play" type="button" id="p-play" aria-pressed="false"><svg class="i i--f t-play__on" aria-hidden="true"><use href="#i-play"/></svg><svg class="i i--f t-play__off" aria-hidden="true"><use href="#i-pause"/></svg><span class="sr">Play the demo loop</span></button>
+            <button class="t-btn t-btn--big" type="button" id="p-next" aria-label="Next song"><svg class="i i--f" aria-hidden="true"><use href="#i-next"/></svg></button>
+            <button class="t-btn" type="button" aria-label="Repeat" data-toggle><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg></button>
+          </div>
+          <div class="lyrics-strip" aria-live="off">
+            <span class="lyrics-strip__now" id="p-lyric">Press play — the loop is made live in your browser</span>
+            <span class="lyrics-strip__next" id="p-lyric-next">Synced lyrics show up right here</span>
+          </div>
+          <div class="dock" role="group" aria-label="Quick controls">
+            <a class="dock__btn" href="%B%features/#queue" aria-label="Up next"><svg class="i" aria-hidden="true"><use href="#i-queue"/></svg><b class="dock__badge">6</b></a>
+            <button class="dock__btn" type="button" id="p-like" aria-label="Like" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <label class="dock__vol"><svg class="i" aria-hidden="true"><use href="#i-vol"/></svg><input type="range" min="0" max="100" value="72" id="p-vol" aria-label="Volume" /></label>
+            <a class="dock__btn" href="%B%features/#sound" aria-label="Sound studio"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg></a>
+          </div>
+        </div>
+        <ul class="menu player__menu" id="p-menu" hidden>
+          <li><a href="%B%stage/">Stage <small>Ctrl Alt V</small></a></li>
+          <li><a href="%B%features/#queue">Up next · 6</a></li>
+          <li><a href="%B%features/#player">Library</a></li>
+          <li><a href="%B%features/#sound">Sound studio</a></li>
+          <li class="menu__sep" role="separator"></li>
+          <li><a href="%B%features/#pill">Mini player</a></li>
+          <li><a href="%B%features/#keys">Hotkeys</a></li>
+          <li class="menu__sep" role="separator"></li>
+          <li><a href="%B%faq/">Settings &amp; docs</a></li>
+        </ul>
+      </div>
+
+      <div class="win pillw" aria-hidden="true">
+        <span class="win__dot"></span>
+        <img class="pillw__art" id="pill-art" src="%B%img/art0-512.webp" width="64" height="64" alt="" />
+        <span class="pillw__t" id="pill-t">Low Orbit · Nightglass</span>
+        <span class="eq"><i></i><i></i><i></i></span>
+        <span class="pillw__btn"><svg class="i i--f pw-play"><use href="#i-play"/></svg><svg class="i i--f pw-pause"><use href="#i-pause"/></svg></span>
+      </div>
+      <p class="hero__cap">The real widget, rebuilt in HTML. Press play.</p>
     </div>
   </section>
 
-  <section class="tracks paper" aria-labelledby="tracks-title">
-    <header class="tracks__head">
-      <p class="label">Tracklist · 8 songs · both sides</p>
-      <h2 class="tracks__title" id="tracks-title" data-split><span class="serif">Side A</span><br />What's on it</h2>
-      <p class="lede" data-reveal>Everything that ships in 2.1.4, in the order you'll meet it. Each track opens its own page.</p>
+  <section class="tracks sec" aria-labelledby="tracks-title">
+    <header class="sec-head">
+      <p class="label">What's inside</p>
+      <h2 class="h2" id="tracks-title" data-split>Small window.<br /><span class="soft">Everything you reach for.</span></h2>
+      <p class="lede" data-reveal>Everything that ships in 2.1.4, in the order you'll meet it. Hover a row to see the real screen.</p>
     </header>
-    <ol class="trk-list">
-      <li><a class="trk" href="%B%voice/" data-img="settings-voice"><span class="trk__n">A1</span><span class="trk__t">Hold F8. Say a song.</span><span class="trk__d">Push-to-talk works while your game has focus. Speech is turned into a command on your PC by whisper.cpp; the mic is closed the rest of the time.</span><span class="trk__m">Voice · offline</span></a></li>
-      <li><a class="trk" href="%B%stage/" data-img="stage-orbit"><span class="trk__n">A2</span><span class="trk__t">Eight Stages</span><span class="trk__d">A fullscreen or live-wallpaper visualizer: audio-reactive bars, synced lyrics, a clock and your queue. Eight templates, every one customizable.</span><span class="trk__m"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>V</kbd></span></a></li>
-      <li><a class="trk" href="%B%features/#player" data-img="now-playing"><span class="trk__n">A3</span><span class="trk__t">One search, seven sources</span><span class="trk__d">Full-length tracks from Audius, JioSaavn, YouTube Music, Deezer, iTunes, Internet Archive and radio. Offline downloads, liked songs and an orbit queue.</span><span class="trk__m">Player</span></a></li>
-      <li><a class="trk" href="%B%features/#sound" data-img="sound-studio"><span class="trk__n">A4</span><span class="trk__t">Slowed. Reverb. Bass.</span><span class="trk__d">Slowed, reverb, speed, nightcore and bass boost, changed live while the song keeps playing. No re-download, no restart.</span><span class="trk__m">Sound studio</span></a></li>
-      <li class="trk-side"><span class="serif">Side B</span></li>
-      <li><a class="trk" href="%B%features/#pill" data-img="pill"><span class="trk__n">B1</span><span class="trk__t">The pill</span><span class="trk__d">Collapse the player to a slim pill: cover, song, play/pause. It stays out of the way of whatever you're doing.</span><span class="trk__m">Mini player</span></a></li>
-      <li><a class="trk" href="%B%features/#keys" data-img="more-menu"><span class="trk__n">B2</span><span class="trk__t">Hotkeys that reach through games</span><span class="trk__d">Global shortcuts for play, skip, like, volume, effects and Stage, plus your hardware media keys. Rebind any of them.</span><span class="trk__m"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>P</kbd></span></a></li>
-      <li><a class="trk" href="%B%features/#light" data-img="orbit-queue"><span class="trk__n">B3</span><span class="trk__t">Next to nothing at idle</span><span class="trk__d">About 0% CPU when idle. Effects pause when the music does, animations stop when the widget isn't focused, Stage is capped at 60 fps.</span><span class="trk__m">Lightweight</span></a></li>
-      <li><a class="trk" href="%B%faq/#privacy" data-img="settings"><span class="trk__n">B4</span><span class="trk__t">What you say stays here</span><span class="trk__d">The voice model runs locally. In wake-word mode only commands that start with "Hey Wisp" run, so game chat can't skip your songs.</span><span class="trk__m">Private</span></a></li>
-    </ol>
-    <div class="trk-preview" id="trk-preview" aria-hidden="true"><img alt="" /></div>
+    <div class="tracks__wrap">
+      <ol class="trk-list panel" data-reveal>
+        <li><a class="trk" href="%B%voice/" data-img="settings-voice"><span class="trk__n">01</span><span class="trk__t">Hold F8. Say a song.</span><span class="trk__d">Push-to-talk works while your game has focus. whisper.cpp turns speech into a command on your PC; the mic is closed the rest of the time.</span><span class="trk__m">Voice</span></a></li>
+        <li><a class="trk" href="%B%stage/" data-img="stage-orbit"><span class="trk__n">02</span><span class="trk__t">Eight Stages</span><span class="trk__d">A fullscreen or live-wallpaper visualizer: album-art disc, radial bars, synced lyrics, a clock and your queue. Eight templates, every one customizable.</span><span class="trk__m"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>V</kbd></span></a></li>
+        <li><a class="trk" href="%B%features/#player" data-img="now-playing"><span class="trk__n">03</span><span class="trk__t">One search, seven sources</span><span class="trk__d">Full-length tracks from Audius, JioSaavn, YouTube Music, Deezer, iTunes, Internet Archive and radio. Offline downloads, liked songs and an orbit queue.</span><span class="trk__m">Player</span></a></li>
+        <li><a class="trk" href="%B%features/#sound" data-img="sound-studio"><span class="trk__n">04</span><span class="trk__t">Slowed. Reverb. Bass.</span><span class="trk__d">Slowed, reverb, speed, nightcore and bass boost, changed live while the song keeps playing. No re-download, no restart.</span><span class="trk__m">Sound studio</span></a></li>
+        <li><a class="trk" href="%B%features/#pill" data-img="pill"><span class="trk__n">05</span><span class="trk__t">The pill</span><span class="trk__d">Collapse the player to a slim pill: cover, song, play/pause. It stays out of the way of whatever you're doing.</span><span class="trk__m">Mini player</span></a></li>
+        <li><a class="trk" href="%B%features/#keys" data-img="more-menu"><span class="trk__n">06</span><span class="trk__t">Hotkeys that reach through games</span><span class="trk__d">Global shortcuts for play, skip, like, volume, effects and Stage, plus your hardware media keys. Rebind any of them.</span><span class="trk__m"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>P</kbd></span></a></li>
+        <li><a class="trk" href="%B%features/#light" data-img="orbit-queue"><span class="trk__n">07</span><span class="trk__t">Next to nothing at idle</span><span class="trk__d">About 0% CPU when idle. Effects pause when the music does, animations stop when the widget isn't focused, Stage is capped at 60 fps.</span><span class="trk__m">Lightweight</span></a></li>
+        <li><a class="trk" href="%B%faq/#privacy" data-img="settings"><span class="trk__n">08</span><span class="trk__t">What you say stays here</span><span class="trk__d">The voice model runs locally. In wake-word mode only commands that start with "Hey Wisp" run, so game chat can't skip your songs.</span><span class="trk__m">Private</span></a></li>
+      </ol>
+      <div class="trk-preview" id="trk-preview" aria-hidden="true"><img alt="" /></div>
+    </div>
   </section>
 
-  <section class="tease" aria-labelledby="tease-title">
+  <section class="tease sec paper" id="voice-demo" aria-labelledby="tease-title">
     <div class="tease__intro">
-      <p class="label">Interlude · the voice grammar, running in your browser</p>
-      <h2 class="h1" id="tease-title" data-split>Type what<br />you'd <span class="serif acid">say.</span></h2>
+      <p class="label">Voice · running in your browser</p>
+      <h2 class="h2" id="tease-title" data-split>Type what<br /><span class="soft">you'd say.</span></h2>
       <p class="tease__note" data-reveal>This is Wispify's real command parser, ported line for line from the app. Hold <kbd>F8</kbd> and type, or just type and press Enter.</p>
-      <a class="ulink mono" href="%B%voice/" data-reveal>Every command, and the full playground →</a>
+      <a class="ulink mono" href="%B%voice/" data-reveal>Every command and the full playground →</a>
     </div>
     <div class="vw vw--compact" id="vw-home" data-reveal></div>
   </section>
 
-  <section class="film" aria-labelledby="film-title">
+  <section class="film sec" aria-labelledby="film-title">
     <header class="film__head">
-      <p class="label">Side B · Stage · real captures from the app</p>
-      <h2 class="h2" id="film-title" data-split>Eight ways to<br />fill a screen</h2>
+      <div>
+        <p class="label">Stage · real captures from the app</p>
+        <h2 class="h2" id="film-title" data-split>Eight ways to<br /><span class="soft">fill a screen.</span></h2>
+      </div>
       <a class="btn" href="%B%stage/">Play them live <span class="arr" aria-hidden="true">→</span></a>
     </header>
-    <div class="film__track" id="film" data-cursor="Drag" tabindex="0" aria-label="Stage templates, scroll sideways">
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-orbit-800.avif 800w, %B%img/stage-orbit-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-orbit-800.webp" srcset="%B%img/stage-orbit-800.webp 800w, %B%img/stage-orbit-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Orbit template: album disc with radial bars, lyrics on the left, clock top right" /></picture><figcaption><span>T1</span> Orbit <em>Disc, radial bars, lyrics</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-vinyl-800.avif 800w, %B%img/stage-vinyl-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-vinyl-800.webp" srcset="%B%img/stage-vinyl-800.webp 800w, %B%img/stage-vinyl-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Vinyl template: a spinning record ringed by dots" /></picture><figcaption><span>T3</span> Vinyl <em>A record that spins</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-neon-800.avif 800w, %B%img/stage-neon-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-neon-800.webp" srcset="%B%img/stage-neon-800.webp 800w, %B%img/stage-neon-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Neon template: cyan glowing bars on black" /></picture><figcaption><span>T6</span> Neon <em>Electric glow</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-wave-800.avif 800w, %B%img/stage-wave-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-wave-800.webp" srcset="%B%img/stage-wave-800.webp 800w, %B%img/stage-wave-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Wave template: bars along the floor" /></picture><figcaption><span>T4</span> Wave <em>Bars along the floor</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-minimal-800.avif 800w, %B%img/stage-minimal-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-minimal-800.webp" srcset="%B%img/stage-minimal-800.webp 800w, %B%img/stage-minimal-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Minimal template: just the lyrics, very large" /></picture><figcaption><span>T2</span> Minimal <em>Just the words</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-ring-800.avif 800w, %B%img/stage-ring-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-ring-800.webp" srcset="%B%img/stage-ring-800.webp 800w, %B%img/stage-ring-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Ring template: one thin line around the disc" /></picture><figcaption><span>T5</span> Ring <em>One thin line</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-cinematic-800.avif 800w, %B%img/stage-cinematic-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-cinematic-800.webp" srcset="%B%img/stage-cinematic-800.webp 800w, %B%img/stage-cinematic-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Cinematic template: big art, quiet title" /></picture><figcaption><span>T7</span> Cinematic <em>Big art, quiet title</em></figcaption></figure>
-      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-particles-800.avif 800w, %B%img/stage-particles-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-particles-800.webp" srcset="%B%img/stage-particles-800.webp 800w, %B%img/stage-particles-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Particles template: warm motes drifting off the disc" /></picture><figcaption><span>T8</span> Particles <em>Drifting light</em></figcaption></figure>
+    <div class="film__track" id="film" tabindex="0" aria-label="Stage templates, scroll sideways">
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-orbit-800.avif 800w, %B%img/stage-orbit-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-orbit-800.webp" srcset="%B%img/stage-orbit-800.webp 800w, %B%img/stage-orbit-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Orbit template: album disc with radial bars, lyrics on the left, clock top right" /></picture><figcaption><b>Orbit</b><span>Disc, radial bars, lyrics</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-vinyl-800.avif 800w, %B%img/stage-vinyl-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-vinyl-800.webp" srcset="%B%img/stage-vinyl-800.webp 800w, %B%img/stage-vinyl-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Vinyl template: a spinning record ringed by dots" /></picture><figcaption><b>Vinyl</b><span>A record that spins</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-neon-800.avif 800w, %B%img/stage-neon-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-neon-800.webp" srcset="%B%img/stage-neon-800.webp 800w, %B%img/stage-neon-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Neon template: cyan glowing bars on black" /></picture><figcaption><b>Neon</b><span>Electric glow</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-wave-800.avif 800w, %B%img/stage-wave-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-wave-800.webp" srcset="%B%img/stage-wave-800.webp 800w, %B%img/stage-wave-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Wave template: bars along the floor" /></picture><figcaption><b>Wave</b><span>Bars along the floor</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-minimal-800.avif 800w, %B%img/stage-minimal-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-minimal-800.webp" srcset="%B%img/stage-minimal-800.webp 800w, %B%img/stage-minimal-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Minimal template: just the lyrics, very large" /></picture><figcaption><b>Minimal</b><span>Just the words</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-ring-800.avif 800w, %B%img/stage-ring-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-ring-800.webp" srcset="%B%img/stage-ring-800.webp 800w, %B%img/stage-ring-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Ring template: one thin line around the disc" /></picture><figcaption><b>Ring</b><span>One thin line</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-cinematic-800.avif 800w, %B%img/stage-cinematic-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-cinematic-800.webp" srcset="%B%img/stage-cinematic-800.webp 800w, %B%img/stage-cinematic-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Cinematic template: big art, quiet title" /></picture><figcaption><b>Cinematic</b><span>Big art, quiet title</span></figcaption></figure>
+      <figure class="frame"><picture><source type="image/avif" srcset="%B%img/stage-particles-800.avif 800w, %B%img/stage-particles-1600.avif 1600w" sizes="(max-width: 720px) 86vw, 58vw" /><img src="%B%img/stage-particles-800.webp" srcset="%B%img/stage-particles-800.webp 800w, %B%img/stage-particles-1600.webp 1600w" sizes="(max-width: 720px) 86vw, 58vw" width="1600" height="900" loading="lazy" decoding="async" alt="Stage, Particles template: warm motes drifting off the disc" /></picture><figcaption><b>Particles</b><span>Drifting light</span></figcaption></figure>
     </div>
   </section>
 
-  <section class="press paper" aria-labelledby="press-title">
+  <section class="press sec paper" aria-labelledby="press-title">
     <div class="press__left">
-      <p class="label">Liner notes</p>
-      <h2 class="h2" id="press-title" data-split>Pressing<br /><span class="serif">details</span></h2>
-      <p class="press__sig" data-reveal>Written, designed and built by <strong>MrReal / Ahmad Raza</strong>. For low-spec PCs first, because that's where a music app shouldn't cost you frames.</p>
+      <p class="label">The details</p>
+      <h2 class="h2" id="press-title" data-split>Made for the<br /><span class="soft">slow PC first.</span></h2>
+      <p class="press__sig" data-reveal>Written, designed and built by <strong>MrReal / Ahmad Raza</strong>, for low-spec PCs first, because that's where a music app shouldn't cost you frames.</p>
     </div>
-    <dl class="press__dl" data-reveal>
+    <dl class="press__dl panel" data-reveal>
       <div><dt>Format</dt><dd>Windows 10 &amp; 11, x64. Installer or portable exe.</dd></div>
       <div><dt>Runtime</dt><dd>Tauri 2 on WebView2, which is built into Windows.</dd></div>
       <div><dt>Voice</dt><dd>whisper.cpp with Whisper base.en (≈57 MB), downloaded once on your first Voice press.</dd></div>
       <div><dt>Idle</dt><dd>≈0% CPU. Mic closed in push-to-talk.</dd></div>
       <div><dt>Stage</dt><dd>One canvas draw per frame, 60 fps cap, 30 on Low-impact.</dd></div>
       <div><dt>CPU floor</dt><dd>Any x86-64 with SSE4.2. No AVX required.</dd></div>
+      <div><dt>Window</dt><dd>Frameless, solid by default; Windows 11 Mica glass if you want it.</dd></div>
       <div><dt>Licence</dt><dd>MIT. Free.</dd></div>
-      <div><dt>Version</dt><dd>2.1.4</dd></div>
     </dl>
   </section>
 
-  <section class="outro" aria-labelledby="outro-title">
-    <p class="label">End of side B</p>
-    <a class="outro__link" href="%B%download/" id="outro-title"><span class="outro__w">Download</span><span class="outro__s serif">for Windows, free</span></a>
+  <section class="outro sec" aria-labelledby="outro-title">
+    <img class="outro__icon" src="%B%img/logo-256.png" width="128" height="128" alt="" loading="lazy" data-reveal />
+    <h2 class="h1" id="outro-title" data-split>Get Wispify.</h2>
+    <p class="lede" data-reveal>Free for Windows 10 and 11. Installer or portable exe.</p>
+    <div class="hero__cta" data-reveal><a class="btn btn--accent" href="%B%download/"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Download for Windows</a><a class="btn" href="%B%changelog/">What's new in 2.1</a></div>
   </section>
 
 </main>

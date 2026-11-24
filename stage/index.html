@@ -7,20 +7,31 @@
 <body class="no-hero">
 <!--@header-->
 <main id="main">
-  <header class="shead">
-    <p class="label shead__l"><span>03 — Stage</span><span><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>V</kbd> in the app</span></p>
-    <h1 class="mega shead__t" data-split>Stage</h1>
-    <p class="lede shead__d" data-reveal>A fullscreen visualizer, or a live wallpaper behind your desktop icons. Album art, audio-reactive bars, big synced lyrics, a clock and your queue. Pick a template and press play.</p>
+  <header class="page-head shead">
+    <p class="label"><span>Stage</span><span>Ctrl Alt V in the app</span></p>
+    <h1 class="h1" data-split>Your music,<br /><span class="soft">full screen.</span></h1>
+    <p class="lede" data-reveal>A fullscreen visualizer, or a live wallpaper behind your desktop icons. Album art, audio-reactive bars, big synced lyrics, a clock and your queue. Pick a template and start it.</p>
   </header>
 
   <section class="deck" aria-label="Live Stage templates">
-    <div class="deck__screen">
-      <div class="deck__frame" data-cursor="Play">
+    <div class="deck__screen" data-reveal>
+      <div class="deck__frame" id="deck-frame">
         <canvas id="stage-canvas" aria-label="Live preview of the selected Stage template"></canvas>
-        <button class="deck__play" id="stage-play" type="button" aria-pressed="false"><span class="deck__icon" aria-hidden="true"></span><span class="sr">Play the demo loop</span></button>
+        <div class="deck__desk" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="deck__task"><b></b><b></b><b></b><b></b><b></b></span></div>
+        <button class="deck__play" id="stage-play" type="button" aria-pressed="false"><span class="deck__icon" aria-hidden="true"><svg class="i i--f t-play__on"><use href="#i-play"/></svg></span><span class="sr">Play the demo loop</span></button>
       </div>
-      <div class="deck__bar">
-        <p class="deck__spec mono" id="spec" aria-live="polite"></p>
+      <p class="deck__spec" id="spec" aria-live="polite"></p>
+    </div>
+
+    <div class="stage-sheet" data-reveal style="--d:.08s">
+      <div class="stage-sheet__head">
+        <span class="stage-sheet__icon"><svg class="i" aria-hidden="true"><use href="#i-stage"/></svg></span>
+        <div><h2>Stage</h2><p>Your music, full screen · Ctrl + Alt + V</p></div>
+      </div>
+      <button class="stage-go" id="stage-go" type="button">Start Stage</button>
+      <div class="ss-row"><span>Show as</span><div class="seg" role="group" aria-label="Show as"><button type="button" data-show="full" aria-pressed="true">Fullscreen</button><button type="button" data-show="wall" aria-pressed="false">Wallpaper</button></div></div>
+      <div class="tpl-grid" role="radiogroup" aria-label="Template" id="tpl-list"></div>
+      <div class="ss-row"><span>Background art</span>
         <div class="deck__covers" role="radiogroup" aria-label="Demo cover">
           <button type="button" role="radio" aria-checked="true" data-art="0" style="--c:url('%B%img/art0-512.webp')"><span class="sr">Cover 1</span></button>
           <button type="button" role="radio" aria-checked="false" data-art="1" style="--c:url('%B%img/art1-512.webp')"><span class="sr">Cover 2</span></button>
@@ -30,17 +41,14 @@
           <button type="button" role="radio" aria-checked="false" data-art="6" style="--c:url('%B%img/art6-512.webp')"><span class="sr">Cover 6</span></button>
         </div>
       </div>
-    </div>
-    <div class="deck__list" role="radiogroup" aria-label="Template" id="tpl-list">
-      <!-- filled from the template presets -->
+      <p class="stage-hint">Drawn in your browser by a port of the app's renderer, same presets. The real captures are below.</p>
     </div>
   </section>
-  <p class="deck__note wrap mono">Drawn in your browser by a port of the app's renderer, same presets. The queue orbit is simplified here. The captures below are the real app.</p>
 
   <section class="gal" aria-labelledby="gal-h">
     <header class="gal__head">
       <p class="label">From the app · 2.1.4 · demo songs</p>
-      <h2 class="h2" id="gal-h" data-split>The real <span class="serif">thing</span></h2>
+      <h2 class="h2" id="gal-h" data-split>The real thing.</h2>
     </header>
     <div class="gal__grid">
       <figure class="g g1" data-reveal><picture><source type="image/avif" srcset="%B%img/stage-orbit-800.avif 800w, %B%img/stage-orbit-1600.avif 1600w" sizes="(max-width: 760px) 92vw, 66vw" /><img src="%B%img/stage-orbit-800.webp" srcset="%B%img/stage-orbit-800.webp 800w, %B%img/stage-orbit-1600.webp 1600w" sizes="(max-width: 760px) 92vw, 66vw" width="1600" height="900" loading="lazy" decoding="async" alt="Orbit: blurred blue album art, a disc ringed by white radial bars, lyrics on the left, clock and date top right, the queue orbit bottom left" /></picture><figcaption><b>Orbit</b><span>radial · 96 bars · lyrics left · queue</span></figcaption></figure>
@@ -57,10 +65,10 @@
   <section class="smodes paper" aria-labelledby="smodes-h">
     <div class="smodes__l">
       <p class="label">Two ways to show it</p>
-      <h2 class="h2" id="smodes-h" data-split>Fullscreen,<br />or <span class="serif">behind your icons</span></h2>
+      <h2 class="h2" id="smodes-h" data-split>Fullscreen,<br /><span class="soft">or behind your icons.</span></h2>
     </div>
     <div class="smodes__r">
-      <dl class="press__dl" data-reveal>
+      <dl class="press__dl panel" data-reveal>
         <div><dt>Fullscreen</dt><dd>Takes the screen. <kbd>Esc</kbd> closes it.</dd></div>
         <div><dt>Wallpaper</dt><dd>Sits behind the desktop icons as a live wallpaper, and repaints your normal wallpaper when it closes. Falls back to fullscreen if the desktop layer isn't available.</dd></div>
         <div><dt>Lock</dt><dd>Makes the Stage click-through. Dim, Refresh and Close sit next to it.</dd></div>

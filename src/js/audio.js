@@ -16,6 +16,7 @@ const ARP = [0, 2, 1, 3, 2, 1, 3, 2, 0, 3, 1, 2, 3, 1, 2, 0];
 const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
 
 let ctx = null, master = null, analyser = null, comp = null, noiseBuf = null, padBus = null, verb = null;
+let vol = 0.7;
 let timer = 0, nextTime = 0, step = 0, startedAt = 0, playing = false;
 const listeners = new Set();
 
@@ -128,7 +129,7 @@ export async function play() {
   nextTime = ctx.currentTime + 0.06;
   startedAt = nextTime;
   master.gain.cancelScheduledValues(ctx.currentTime);
-  master.gain.setTargetAtTime(0.7, ctx.currentTime, 0.05);
+  master.gain.setTargetAtTime(Math.max(0.0001, vol), ctx.currentTime, 0.05);
   pump();
   timer = setInterval(pump, 25);
   emit();
@@ -140,6 +141,8 @@ export function stop() {
   master.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.06);
   emit();
 }
+/** 0..1, like the widget's volume slider. */
+export function setVolume(v) { vol = Math.max(0, Math.min(1, v)) * 0.95; if (playing && master) master.gain.setTargetAtTime(Math.max(0.0001, vol), ctx.currentTime, 0.05); }
 export function toggle() { return playing ? (stop(), false) : play().then(() => true); }
 
 /** Seconds since the loop started (for lyric timing). */

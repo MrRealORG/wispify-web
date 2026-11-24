@@ -1,82 +1,131 @@
+import "../css/base.css";
 import "../css/home.css";
 import "../css/vw.css";
-import { reduced, finePointer } from "./common.js";
+import { reduced, finePointer, sfx } from "./common.js";
 import * as audio from "./audio.js";
-import { StageCanvas, TEMPLATES, LYRICS } from "./viz.js";
+import { LYRICS } from "./viz.js";
 import { mountVoice } from "./vw.js";
-import { initPlayButton, initDragScroll } from "./ui.js";
+import { initDragScroll } from "./ui.js";
 
-/* ── hero: the Orbit template in the site's colours ── */
+const BASE = import.meta.env.BASE_URL;
+const $ = (id) => document.getElementById(id);
+
+/* ── hero: the real widget, rebuilt in HTML ── */
+const player = $("player");
 const hero = document.querySelector(".hero");
-const canvas = document.getElementById("hero-canvas");
-const meter = [...document.querySelectorAll("#meter i")];
-const lyricEl = document.getElementById("lyric");
-const lyricN = document.getElementById("lyric-n");
+const SONGS = [
+  { t: "Low Orbit", a: "Nightglass", art: 0, dur: 204 },
+  { t: "Glasshouse", a: "Nightglass", art: 1, dur: 187 },
+  { t: "Paper Satellites", a: "Nightglass", art: 2, dur: 221 },
+  { t: "Slow Static", a: "Nightglass", art: 3, dur: 196 },
+  { t: "Harbour Lights", a: "Nightglass", art: 5, dur: 233 },
+  { t: "Afterglow FM", a: "Nightglass", art: 6, dur: 178 },
+];
+let idx = 0, lastLyric = -1, raf = 0, offset = 0;
+const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
-const layout = (w, h) => {
-  if (w < 760) return { cx: w * 0.5, cy: Math.min(h * 0.36, w * 0.62), r: w * 0.24 };
-  return { cx: w * 0.655, cy: h * 0.45, r: Math.min(w * 0.125, h * 0.19) };
-};
-const place = () => {
-  const r = canvas.getBoundingClientRect();
-  const L = layout(r.width, r.height);
-  hero.style.setProperty("--cx", `${L.cx}px`);
-  hero.style.setProperty("--cy", `${L.cy}px`);
-  hero.style.setProperty("--r", `${L.r}px`);
-};
-new ResizeObserver(place).observe(canvas);
-place();
+function setSong(i, dir = 1) {
+  idx = (i + SONGS.length) % SONGS.length;
+  const s = SONGS[idx];
+  const cover = $("p-cover");
+  cover.classList.add("swap");
+  setTimeout(() => {
+    cover.onload = () => cover.classList.remove("swap");
+    cover.src = `${BASE}img/art${s.art}-512.webp`;
+    $("pill-art").src = cover.src;
+    if (cover.complete) cover.classList.remove("swap");
+    setTimeout(() => cover.classList.remove("swap"), 1200);
+  }, reduced ? 0 : 160);
+  $("p-title").textContent = s.t;
+  $("p-artist").textContent = s.a;
+  $("pill-t").textContent = `${s.t} · ${s.a}`;
+  $("p-dur").textContent = fmt(s.dur);
+  offset = audio.songTime();
+  lastLyric = -1;
+  if (dir) sfx("pick", 0.3);
+  tick(true);
+}
 
-let lastLyric = -1;
-const stage = new StageCanvas(canvas, {
-  look: { ...TEMPLATES[0].look, accent: "#d7ff3d", bars: 120, disc: "vinyl", lyrics: false, clock: false, queue: false },
-  skin: "site",
-  chrome: false,
-  layout,
-  onFrame({ energy, playing }) {
-    const lit = Math.round(Math.min(1, energy * 2.4) * meter.length);
-    for (let i = 0; i < meter.length; i++) meter[i].classList.toggle("on", playing && i < lit);
-    if (playing) {
-      const idx = Math.floor(audio.songTime() / (audio.BEAT * 8)) % LYRICS.length;
-      if (idx !== lastLyric) {
-        lastLyric = idx;
-        lyricEl.classList.remove("swap"); void lyricEl.offsetWidth; lyricEl.classList.add("swap");
-        lyricEl.textContent = LYRICS[idx];
-        lyricN.textContent = `Lyric 0${idx + 1} / 06 — Low Orbit, Nightglass`;
-      }
+function tick(once) {
+  const s = SONGS[idx];
+  const t = Math.max(0, audio.songTime() - offset);
+  $("p-fill").style.width = `${Math.max(2, Math.min(100, (t / s.dur) * 100))}%`;
+  $("p-cur").textContent = fmt(t);
+  if (audio.isPlaying()) {
+    const li = Math.floor(t / (audio.BEAT * 8)) % LYRICS.length;
+    if (li !== lastLyric) {
+      lastLyric = li;
+      const now = $("p-lyric");
+      now.classList.add("swap");
+      setTimeout(() => { now.textContent = LYRICS[li]; $("p-lyric-next").textContent = LYRICS[(li + 1) % LYRICS.length]; now.classList.remove("swap"); }, reduced ? 0 : 180);
     }
-  },
-});
-document.fonts?.ready.then(() => stage.resize());
-hero.classList.add("is-live");
-initPlayButton(document.getElementById("hero-play"), hero);
+  }
+  if (!once && audio.isPlaying()) raf = requestAnimationFrame(() => tick());
+}
 
-/* ── tracklist: a real screenshot follows the cursor on hover ── */
-const prev = document.getElementById("trk-preview");
+const playBtn = $("p-play");
+const sync = (playing) => {
+  player.dataset.playing = String(playing);
+  playBtn.setAttribute("aria-pressed", String(playing));
+  playBtn.querySelector(".sr").textContent = playing ? "Pause the demo loop" : "Play the demo loop";
+  hero.classList.toggle("is-playing", playing);
+  $("p-dot").classList.toggle("is-on", playing);
+  cancelAnimationFrame(raf);
+  if (playing) { offset = 0; lastLyric = -1; tick(); }
+};
+playBtn.addEventListener("click", () => audio.toggle());
+audio.onChange(sync);
+document.addEventListener("visibilitychange", () => { if (document.hidden) audio.stop(); });
+$("p-next").addEventListener("click", () => setSong(idx + 1));
+$("p-prev").addEventListener("click", () => setSong(idx - 1, -1));
+for (const b of player.querySelectorAll("[data-toggle]")) {
+  b.setAttribute("aria-pressed", "false");
+  b.addEventListener("click", () => { b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true")); sfx("tap", 0.3); });
+}
+const like = $("p-like");
+like.addEventListener("click", () => {
+  const on = like.getAttribute("aria-pressed") !== "true";
+  like.setAttribute("aria-pressed", String(on));
+  if (on) sfx("like", 0.35);
+});
+const vol = $("p-vol");
+const paintVol = () => vol.style.setProperty("--v", `${vol.value}%`);
+vol.addEventListener("input", () => { paintVol(); audio.setVolume?.(vol.value / 100); });
+paintVol();
+
+/* the ⋯ More menu */
+const more = $("p-more"), menu = $("p-menu");
+const openMenu = (open) => { more.setAttribute("aria-expanded", String(open)); menu.hidden = !open; if (open) sfx("expand", 0.25); };
+more.addEventListener("click", (e) => { e.stopPropagation(); openMenu(menu.hidden); });
+document.addEventListener("click", (e) => { if (!menu.hidden && !menu.contains(e.target)) openMenu(false); });
+addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !menu.hidden) openMenu(false);
+  if (e.key === "/" && !/input|textarea/i.test(document.activeElement?.tagName || "")) { e.preventDefault(); location.href = `${BASE}features/#player`; }
+});
+
+/* ── what's inside: the real screen follows the cursor on hover ── */
+const prev = $("trk-preview");
 if (prev && finePointer && !reduced) {
   const img = prev.querySelector("img");
   const list = document.querySelector(".trk-list");
-  let x = 0, y = 0, tx = 0, ty = 0, raf = 0, on = false;
-  const tick = () => {
-    x += (tx - x) * 0.16; y += (ty - y) * 0.16;
+  const box = () => list.parentElement.getBoundingClientRect();
+  let x = 0, y = 0, tx = 0, ty = 0, raf2 = 0, on = false;
+  const step = () => {
+    x += (tx - x) * 0.18; y += (ty - y) * 0.18;
     prev.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    raf = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(tick) : 0;
+    raf2 = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(step) : 0;
   };
-  list.addEventListener("pointermove", (e) => {
-    const box = list.parentElement.getBoundingClientRect();
-    tx = e.clientX - box.left + 28; ty = e.clientY - box.top - 120;
-    if (!raf) raf = requestAnimationFrame(tick);
-  });
+  const aim = (e) => { const b = box(); const w = prev.offsetWidth; tx = Math.min(e.clientX - b.left + 28, b.width - w); ty = e.clientY - b.top - 140; };
+  list.addEventListener("pointermove", (e) => { aim(e); if (!raf2) raf2 = requestAnimationFrame(step); });
   for (const a of list.querySelectorAll(".trk")) {
     a.addEventListener("pointerenter", (e) => {
       const name = a.dataset.img;
-      const wide = name.startsWith("stage");
-      const file = `${import.meta.env.BASE_URL}img/${name}-${wide ? 800 : name === "pill" ? 448 : name === "voice" ? 800 : 440}.webp`;
-      img.src = file;
-      prev.classList.toggle("wide", wide || name === "pill" || name === "voice");
-      if (!on) { const box = list.parentElement.getBoundingClientRect(); x = tx = e.clientX - box.left + 28; y = ty = e.clientY - box.top - 120; }
+      const wide = name.startsWith("stage") || name === "pill";
+      img.src = `${BASE}img/${name}-${name.startsWith("stage") ? 800 : name === "pill" ? 448 : 440}.webp`;
+      prev.classList.toggle("wide", wide);
+      if (!on) { aim(e); x = tx; y = ty; }
       on = true; prev.classList.add("on");
-      if (!raf) raf = requestAnimationFrame(tick);
+      if (!raf2) raf2 = requestAnimationFrame(step);
     });
     a.addEventListener("pointerleave", () => { on = false; prev.classList.remove("on"); });
   }

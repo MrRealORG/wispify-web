@@ -1,6 +1,7 @@
+import "../css/base.css";
 import "../css/pages.css";
 import "../css/stage.css";
-import "./common.js";
+import { sfx } from "./common.js";
 import { StageCanvas, TEMPLATES } from "./viz.js";
 import { initPlayButton } from "./ui.js";
 import * as audio from "./audio.js";
@@ -18,9 +19,12 @@ const stage = new StageCanvas(canvas, { look: TEMPLATES[0].look, art, skin: "app
 art.onload = () => stage.setArt(art);
 document.fonts?.ready.then(() => stage.resize());
 
+/* the app's CSS-only template thumbnails (TemplateThumb in StageSheet.tsx) */
+const thumb = (l) => `<span class="tpl" data-viz="${l.viz}" data-bg="${l.background}" data-disc="${l.disc}" data-lyrics="${l.lyrics ? l.lyricsPos : "off"}" data-title="${l.title}" style="--tpl-accent:${l.accent}" aria-hidden="true">
+  <span class="tpl__bg"></span>${l.viz !== "none" ? '<span class="tpl__viz"></span>' : ""}${l.disc !== "none" ? '<span class="tpl__disc"></span>' : ""}${l.lyrics ? '<span class="tpl__lyrics"><i></i><i></i></span>' : ""}${l.title !== "none" ? '<span class="tpl__title"><i></i></span>' : ""}${l.clock ? '<span class="tpl__clock"></span>' : ""}</span>`;
 list.innerHTML = TEMPLATES.map((t, i) => `
-  <button type="button" role="radio" aria-checked="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-i="${i}">
-    <span class="tpl__n">T${i + 1}</span><span class="tpl__name">${t.name}</span><span class="tpl__blurb">${t.blurb}</span>
+  <button type="button" class="tpl-card" role="radio" aria-checked="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-i="${i}" title="${t.blurb}">
+    ${thumb(t.look)}<span class="tpl-card__name">${t.name}</span>
   </button>`).join("");
 const btns = [...list.querySelectorAll("button")];
 
@@ -38,13 +42,13 @@ function select(i, focus) {
   const t = TEMPLATES[i];
   btns.forEach((b, k) => { b.setAttribute("aria-checked", String(k === i)); b.tabIndex = k === i ? 0 : -1; });
   if (focus) btns[i].focus();
-  const go = () => { stage.setLook(t.look); spec.textContent = `T${i + 1} ${t.name.toUpperCase()}  ·  ${describe(t.look)}`; };
+  const go = () => { stage.setLook(t.look); spec.innerHTML = `<b>${t.name}</b> <span>${t.blurb}</span> <em>${describe(t.look)}</em>`; };
   if (document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     canvas.parentElement.classList.add("swap");
     setTimeout(() => { go(); canvas.parentElement.classList.remove("swap"); }, 140);
   } else go();
 }
-btns.forEach((b, i) => b.addEventListener("click", () => select(i)));
+btns.forEach((b, i) => b.addEventListener("click", () => { select(i); sfx("pick", 0.3); }));
 list.addEventListener("keydown", (e) => {
   const cur = btns.findIndex((b) => b.getAttribute("aria-checked") === "true");
   const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
@@ -65,4 +69,19 @@ const playBtn = document.getElementById("stage-play");
 initPlayButton(playBtn, document.querySelector(".deck"));
 // clicking anywhere on the screen toggles too
 canvas.addEventListener("click", () => playBtn.click());
-audio.onChange((p) => { canvas.parentElement.dataset.cursor = p ? "Pause" : "Play"; const c = document.querySelector(".cursor.on"); if (c) c.textContent = canvas.parentElement.dataset.cursor; });
+const go = document.getElementById("stage-go");
+go.addEventListener("click", () => playBtn.click());
+const icon = playBtn.querySelector("use");
+audio.onChange((p) => {
+  go.textContent = p ? "Stop Stage" : "Start Stage";
+  go.classList.toggle("is-open", p);
+  icon.setAttribute("href", p ? "#i-pause" : "#i-play");
+});
+const frame = document.getElementById("deck-frame");
+for (const b of document.querySelectorAll("[data-show]")) {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("[data-show]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    frame.classList.toggle("is-wall", b.dataset.show === "wall");
+    sfx("tap", 0.3);
+  });
+}

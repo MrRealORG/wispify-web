@@ -240,29 +240,29 @@ export class StageCanvas {
       const date = d.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" }).toUpperCase();
       const fs = Math.max(18, unit * 0.055);
       ctx.textAlign = "right"; ctx.fillStyle = "rgba(255,255,255,0.95)";
-      ctx.font = `300 ${fs}px Bricolage, system-ui, sans-serif`;
+      ctx.font = `300 ${fs}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`;
       ctx.fillText(time, w - unit * 0.035, unit * 0.035 + fs * 0.85);
-      ctx.font = `600 ${Math.max(8, fs * 0.17)}px "JetBrains Mono", monospace`;
+      ctx.font = `600 ${Math.max(8, fs * 0.17)}px "Segoe UI Variable Text", "Segoe UI", -apple-system, "Wispify Sans", sans-serif`;
       ctx.fillStyle = "rgba(255,255,255,0.6)";
       ctx.fillText(date, w - unit * 0.035, unit * 0.035 + fs * 1.25);
     }
     if (look.lyrics) {
       const sizes = { s: 0.026, m: 0.036, l: 0.046, xl: 0.068 };
       let fs = unit * sizes[look.lyricsSize] * (small ? 1.25 : 1);
-      ctx.font = `800 ${fs}px Bricolage, system-ui, sans-serif`;
+      ctx.font = `800 ${fs}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`;
       const cur = LYRICS[this.lyricIdx % LYRICS.length].toUpperCase();
       const next = LYRICS[(this.lyricIdx + 1) % LYRICS.length].toUpperCase();
       let x, y, align, maxW;
       if (look.lyricsPos === "left") { align = "left"; x = w * 0.06; maxW = cx - r * 1.9 - x; y = h * 0.36; }
       else if (look.lyricsPos === "center") { align = "center"; x = w / 2; maxW = w * 0.78; y = h * 0.42; }
       else { align = "center"; x = w / 2; maxW = w * 0.8; y = Math.min(h * 0.86, cy + r * 1.95); }
-      if (look.lyricsPos === "left" && maxW < fs * 6) { align = "center"; x = w / 2; maxW = w * 0.86; y = h * 0.84; fs *= 0.8; ctx.font = `800 ${fs}px Bricolage, system-ui, sans-serif`; }
+      if (look.lyricsPos === "left" && maxW < fs * 6) { align = "center"; x = w / 2; maxW = w * 0.86; y = h * 0.84; fs *= 0.8; ctx.font = `800 ${fs}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`; }
       ctx.textAlign = align;
       const lines = wrap(ctx, cur, maxW);
       ctx.fillStyle = `rgba(255,255,255,${0.92 * this.lyricFade})`;
       lines.forEach((ln, i) => ctx.fillText(ln, x, y + i * fs * 1.0));
       const fs2 = fs * 0.62;
-      ctx.font = `800 ${fs2}px Bricolage, system-ui, sans-serif`;
+      ctx.font = `800 ${fs2}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`;
       ctx.fillStyle = "rgba(255,255,255,0.28)";
       wrap(ctx, next, maxW).forEach((ln, i) => ctx.fillText(ln, x, y + lines.length * fs + fs * 0.5 + i * fs2 * 1.05));
     }
@@ -270,9 +270,9 @@ export class StageCanvas {
       const fs = Math.max(13, unit * 0.022);
       ctx.textAlign = "left";
       const x = w * 0.045, y = look.title === "corner" ? unit * 0.035 + fs : h - unit * 0.06;
-      ctx.font = `700 ${fs}px Bricolage, system-ui, sans-serif`; ctx.fillStyle = "rgba(255,255,255,0.95)";
+      ctx.font = `700 ${fs}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`; ctx.fillStyle = "rgba(255,255,255,0.95)";
       ctx.fillText(SONG.title, x, y);
-      ctx.font = `400 ${fs * 0.8}px Bricolage, system-ui, sans-serif`; ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.font = `400 ${fs * 0.8}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", system-ui, sans-serif`; ctx.fillStyle = "rgba(255,255,255,0.6)";
       ctx.fillText(SONG.artist, x, y + fs * 1.1);
     }
     if (look.queue && !small) {
@@ -288,7 +288,7 @@ export class StageCanvas {
         if (im?.complete && im.naturalWidth) {
           ctx.save(); ctx.clip(); ctx.globalAlpha = i === 0 ? 1 : 0.55; ctx.drawImage(im, px - s / 2, py - s / 2, s, s); ctx.restore();
         } else { ctx.fillStyle = "rgba(255,255,255,0.22)"; ctx.fill(); }
-        ctx.textAlign = "left"; ctx.font = `700 ${s * 0.3}px Bricolage, sans-serif`;
+        ctx.textAlign = "left"; ctx.font = `700 ${s * 0.3}px "Segoe UI Variable Display", "Segoe UI", -apple-system, "Wispify Sans", sans-serif`;
         ctx.fillStyle = i === 0 ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)";
         ctx.fillText(n, px + s * 0.7, py + s * 0.08);
       });

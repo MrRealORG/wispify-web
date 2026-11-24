@@ -41,10 +41,12 @@ function partials() {
         const m = html.match(/<!--@page (\{.*?\})-->/s);
         if (!m) return html;
         const page = JSON.parse(m[1]);
-        const nav = NAV.map(([id, label], i) => {
+        const nav = NAV.map(([id, label]) => {
           const cur = page.nav === id ? ' aria-current="page"' : "";
-          return `<li><a href="${BASE}${id}/"${cur}><span class="nav__n">0${i + 1}</span>${label}</a></li>`;
+          return `<li><a href="${BASE}${id}/"${cur}>${label}</a></li>`;
         }).join("");
+        const item = ([id, label]) => `<li><a href="${BASE}${id}/"${page.nav === id ? ' aria-current="page"' : ""}>${label}</a></li>`;
+        const menu = [item(["", "Home"]).replace(`${BASE}/`, BASE), ...NAV.slice(0, 3).map(item), '<li class="menu__sep" role="separator"></li>', ...NAV.slice(3).map(item), '<li class="menu__sep" role="separator"></li>', item(["download", "Download"])].join("");
         const fill = (s) =>
           s
             .replaceAll("{{title}}", page.title)
@@ -52,6 +54,7 @@ function partials() {
             .replaceAll("{{url}}", SITE + (page.path || ""))
             .replaceAll("{{og}}", `${SITE}og/${page.og || "home"}.png`)
             .replaceAll("{{nav}}", nav)
+            .replaceAll("{{menu}}", menu)
             .replaceAll("{{dlcur}}", page.nav === "download" ? ' aria-current="page"' : "");
         return html
           .replace(m[0], fill(part("head")))

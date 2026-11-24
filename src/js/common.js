@@ -14,26 +14,23 @@ if (hdr) {
   new IntersectionObserver(([e]) => hdr.classList.toggle("is-solid", !e.isIntersecting)).observe(sentinel);
 }
 
-/* mobile menu sheet */
+/* mobile menu: the app's ⋯ More menu */
 const menuBtn = document.querySelector(".hdr__menu");
 const sheet = document.getElementById("sheet");
 if (menuBtn && sheet) {
   const setOpen = (open) => {
     menuBtn.setAttribute("aria-expanded", String(open));
-    menuBtn.querySelector(".hdr__menu-l").textContent = open ? "Close" : "Menu";
-    document.documentElement.classList.toggle("menu-open", open);
     if (open) {
       sheet.hidden = false;
       requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add("is-open")));
-      document.body.style.overflow = "hidden";
     } else {
       sheet.classList.remove("is-open");
-      document.body.style.overflow = "";
-      setTimeout(() => { if (!sheet.classList.contains("is-open")) sheet.hidden = true; }, reduced ? 0 : 260);
+      setTimeout(() => { if (!sheet.classList.contains("is-open")) sheet.hidden = true; }, reduced ? 0 : 200);
     }
   };
-  menuBtn.addEventListener("click", () => setOpen(menuBtn.getAttribute("aria-expanded") !== "true"));
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) setOpen(false); });
+  menuBtn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(menuBtn.getAttribute("aria-expanded") !== "true"); });
+  document.addEventListener("click", (e) => { if (!sheet.hidden && !sheet.contains(e.target)) setOpen(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) { setOpen(false); menuBtn.focus(); } });
 }
 
 /* split [data-split] headings into masked lines (by <br> / .l spans authored in HTML) */
@@ -59,34 +56,6 @@ if (reduced || !("IntersectionObserver" in window)) {
   });
 }
 
-/* contextual cursor: a label disc that only appears over [data-cursor] areas */
-if (finePointer && !reduced) {
-  const cur = document.createElement("div");
-  cur.className = "cursor";
-  cur.setAttribute("aria-hidden", "true");
-  document.body.append(cur);
-  let x = -200, y = -200, tx = -200, ty = -200, s = 0.3, ts = 0.3, raf = 0, active = false;
-  const tick = () => {
-    x += (tx - x) * 0.22; y += (ty - y) * 0.22; s += (ts - s) * 0.18;
-    cur.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${s})`;
-    if (active || Math.abs(ts - s) > 0.01) raf = requestAnimationFrame(tick); else raf = 0;
-  };
-  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
-  addEventListener("pointermove", (e) => {
-    tx = e.clientX; ty = e.clientY;
-    const zone = e.target.closest?.("[data-cursor]");
-    if (zone) {
-      const label = zone.getAttribute("data-cursor");
-      if (cur.textContent !== label) cur.textContent = label;
-      if (!active) { x = tx; y = ty; }
-      active = true; ts = 1; cur.classList.add("on"); kick();
-    } else if (active) {
-      active = false; ts = 0.3; cur.classList.remove("on"); kick();
-    }
-  }, { passive: true });
-  document.addEventListener("pointerleave", () => { active = false; cur.classList.remove("on"); });
-}
-
 /* page transitions: native cross-document View Transitions where supported
    (CSS @view-transition), otherwise a short fade-out before navigating. */
 const nativeVT = "onpagereveal" in window || CSS.supports?.("view-transition-name: a") && "PageRevealEvent" in window;
@@ -110,4 +79,14 @@ export function copyText(text) {
   const t = document.createElement("textarea");
   t.value = text; document.body.append(t); t.select(); document.execCommand("copy"); t.remove();
   return Promise.resolve();
+}
+
+/* the app's UI sounds (public/sfx, copied from the app). Quiet, only after a
+   real interaction, and never on page load. */
+const sounds = {};
+export function sfx(name, volume = 0.35) {
+  try {
+    const a = (sounds[name] ??= new Audio(`${import.meta.env.BASE_URL}sfx/${name}.wav`));
+    a.volume = volume; a.currentTime = 0; a.play().catch(() => {});
+  } catch { /* sound is a nicety */ }
 }

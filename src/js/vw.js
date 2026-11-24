@@ -1,3 +1,4 @@
+import { sfx } from "./common.js";
 // The "hold F8" voice playground. Uses the ported grammar, so what you see
 // parsed here is what the app would do with the same transcript.
 import { parseLenient, parseCommand, toast, explain, normalize } from "./grammar.js";
@@ -37,46 +38,50 @@ const iconFor = (i) => {
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const json = (o) => esc(JSON.stringify(o, null, 1).replace(/\n\s*/g, " ")).replace(/(&quot;[a-zA-Z]+&quot;):/g, '<b>$1</b>:');
 
-let sfx = null;
-function blip(name) {
-  try {
-    sfx ??= {};
-    const a = (sfx[name] ??= new Audio(`${import.meta.env.BASE_URL}sfx/${name}.wav`));
-    a.volume = 0.5; a.currentTime = 0; a.play().catch(() => {});
-  } catch { /* sound is a nicety */ }
-}
+const blip = (name) => sfx(name, 0.45);
 
 export function mountVoice(root, { compact = false } = {}) {
   if (!root) return;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const B = import.meta.env.BASE_URL;
   root.innerHTML = `
-    <div class="vw__top">
-      <button class="vw__key" type="button" aria-describedby="${root.id}-status"><span class="vw__cap"><span>F8</span><small>hold</small></span></button>
-      <div class="vw__state">
-        <p class="vw__status" id="${root.id}-status" aria-live="polite"><i class="vw__dot"></i><span>Hold F8 (or press and hold the key) and type a command.</span></p>
-        <div class="vw__count" aria-hidden="true"><i></i></div>
+    <div class="vw__panel win">
+      <div class="win__bar">
+        <span class="win__dot vw__dot"></span>
+        <span class="win__brand">Voice</span>
+        <div class="seg vw__mode" role="radiogroup" aria-label="Voice mode">
+          <button type="button" role="radio" aria-checked="true" data-mode="ptt">Push-to-talk</button>
+          <button type="button" role="radio" aria-checked="false" data-mode="wake">Wake word</button>
+        </div>
       </div>
-      <div class="vw__mode" role="radiogroup" aria-label="Voice mode">
-        <button type="button" role="radio" aria-checked="true" data-mode="ptt">Push-to-talk</button>
-        <button type="button" role="radio" aria-checked="false" data-mode="wake">Wake word</button>
+      <div class="vw__count" aria-hidden="true"><i></i></div>
+      <div class="vw__voice">
+        <button class="vw__key" type="button" aria-describedby="${root.id}-status" aria-label="Hold to talk (or hold F8)">
+          <span class="vw__ring"></span><span class="vw__ring vw__ring--2"></span>
+          <span class="vw__core"><svg class="i" aria-hidden="true"><use href="#i-mic"/></svg></span>
+        </button>
+        <div class="vw__state">
+          <p class="vw__status" id="${root.id}-status" aria-live="polite"><span>Hold F8 and type a command.</span></p>
+          <p class="vw__hint">Hold <kbd>F8</kbd> or press and hold the orb, type, let go.</p>
+        </div>
       </div>
+      <form class="vw__form" autocomplete="off">
+        <label class="sr" for="${root.id}-in">Command</label>
+        <span class="vw__prompt" aria-hidden="true"><svg class="i"><use href="#i-mic"/></svg></span>
+        <input class="vw__in" id="${root.id}-in" type="text" spellcheck="false" maxlength="200" enterkeyhint="go" placeholder="${EXAMPLES[0]}" />
+        ${SR ? `<button class="vw__mic" type="button" aria-pressed="false" title="Use your browser's speech engine">Mic</button>` : ""}
+        <button class="vw__go" type="submit">Run</button>
+      </form>
+      <div class="vw__try"><span class="vw__try-l">Try</span>${EXAMPLES.slice(0, compact ? 6 : 12).map((e) => `<button type="button" class="vw__ex">${esc(e)}</button>`).join("")}</div>
+      <div class="vw__toast" aria-hidden="true"><img src="${B}img/logo-64.png" width="26" height="26" alt="" /><svg viewBox="0 0 24 24" hidden></svg><span></span></div>
     </div>
-    <form class="vw__form" autocomplete="off">
-      <label class="sr" for="${root.id}-in">Command</label>
-      <span class="vw__prompt" aria-hidden="true">&gt;</span>
-      <input class="vw__in" id="${root.id}-in" type="text" spellcheck="false" maxlength="200" enterkeyhint="go" placeholder="${EXAMPLES[0]}" />
-      ${SR ? `<button class="vw__mic" type="button" aria-pressed="false" title="Use your browser's speech engine">Mic</button>` : ""}
-      <button class="vw__go" type="submit">Run</button>
-    </form>
-    <p class="vw__try"><span class="label">Try</span>${EXAMPLES.slice(0, compact ? 6 : 12).map((e) => `<button type="button" class="vw__ex">${esc(e)}</button>`).join("")}</p>
-    <div class="vw__out">
-      <div class="vw__row"><span class="label">Heard</span><code class="vw__heard">—</code></div>
-      <div class="vw__row"><span class="label">Rule</span><span class="vw__rule">—</span></div>
-      <div class="vw__row"><span class="label">Intent</span><code class="vw__json">null</code></div>
-      <div class="vw__row vw__row--do"><span class="label">Wispify</span><p class="vw__do">Waiting for a command.</p></div>
+    <div class="vw__out panel">
+      <div class="vw__row"><span class="vw__k">Heard</span><code class="vw__heard">—</code></div>
+      <div class="vw__row"><span class="vw__k">Rule</span><span class="vw__rule">—</span></div>
+      <div class="vw__row"><span class="vw__k">Intent</span><code class="vw__json">null</code></div>
+      <div class="vw__row vw__row--do"><span class="vw__k">Wispify</span><p class="vw__do">Waiting for a command.</p></div>
     </div>
-    <div class="vw__toast" aria-hidden="true"><svg viewBox="0 0 24 24"></svg><span></span></div>
-    ${compact ? "" : `<div class="vw__log"><p class="label">Session</p><ol></ol></div>`}
+    ${compact ? "" : `<div class="vw__log panel"><p class="label">Session</p><ol></ol></div>`}
     ${SR ? `<p class="vw__fine">Mic uses your browser's own speech recognition, which may go to a server. The app doesn't: it runs Whisper on your PC.</p>` : ""}
   `;
   const $ = (s) => root.querySelector(s);
@@ -112,7 +117,7 @@ export function mountVoice(root, { compact = false } = {}) {
       toastEl.querySelector("span").textContent = toast(r.intent);
       toastEl.classList.remove("show"); void toastEl.offsetWidth; toastEl.classList.add("show");
       clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
-      blip("voice-off");
+      blip("chime");
     } else blip("error");
     if (log) {
       const li = document.createElement("li");
@@ -126,6 +131,7 @@ export function mountVoice(root, { compact = false } = {}) {
     if (holding) return;
     holding = true;
     root.classList.add("is-hold");
+    root.querySelector(".vw__dot").classList.add("is-live");
     key.setAttribute("aria-pressed", "true");
     status.textContent = micOn ? "Listening… speak, then let go." : "Listening… type, then let go.";
     input.value = ""; render("", false);
@@ -141,6 +147,7 @@ export function mountVoice(root, { compact = false } = {}) {
     holding = false;
     clearTimeout(holdTimer);
     root.classList.remove("is-hold");
+    root.querySelector(".vw__dot").classList.remove("is-live");
     key.setAttribute("aria-pressed", "false");
     count.style.transition = "none"; count.style.transform = "scaleX(0)";
     if (micOn && rec) { try { rec.stop(); } catch {} setTimeout(() => finish(), 600); }

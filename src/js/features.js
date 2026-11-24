@@ -1,3 +1,4 @@
+import "../css/base.css";
 import "../css/pages.css";
 import "./common.js";
 

@@ -1,3 +1,4 @@
+import "../css/base.css";
 import "../css/vw.css";
 import "../css/pages.css";
 import "../css/voice.css";
@@ -19,3 +20,13 @@ for (const b of document.querySelectorAll("[data-say]")) {
     root.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
   });
 }
+
+/* listening modes: the app's segmented control */
+const tabs = [...document.querySelectorAll(".modes [role=tab]")];
+for (const t of tabs) t.addEventListener("click", () => {
+  for (const x of tabs) {
+    const on = x === t;
+    x.setAttribute("aria-selected", String(on)); x.setAttribute("aria-pressed", String(on));
+    document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+  }
+});

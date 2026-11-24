@@ -42,7 +42,7 @@ for (const [vp, opts] of [["desktop", { viewport: { width: 1440, height: 900 } }
     await page.waitForTimeout(1400);
     await page.screenshot({ path: `${OUT}/${vp}-${name}-1-top.png` });
     if (name === "home" || name === "stage") {
-      const btn = await page.$(name === "home" ? "#hero-play" : "#stage-play");
+      const btn = await page.$(name === "home" ? "#p-play" : "#stage-play");
       if (btn) { await btn.click(); await page.waitForTimeout(2600); await page.screenshot({ path: `${OUT}/${vp}-${name}-2-playing.png` }); await btn.click(); }
     }
     const h = await page.evaluate(() => document.documentElement.scrollHeight);
